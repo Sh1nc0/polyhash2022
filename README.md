@@ -18,3 +18,4 @@ L'équipe
 
 - qui ?
 Hippolyte ROUSSEL hippolyte.roussel@etu.univ-nantes.fr
+Romain PIPON romain.pipon@etu.univ-nantes.fr
