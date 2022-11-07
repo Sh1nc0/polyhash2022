@@ -1,0 +1,4 @@
+[commit]
+    template = hooks/conventional_message
+[core]
+    hooksPath = hooks

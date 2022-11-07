@@ -22,3 +22,11 @@ Hippolyte ROUSSEL hippolyte.roussel@etu.univ-nantes.fr
 Romain PIPON romain.pipon@etu.univ-nantes.fr  
 Lilian FORGET lilian.forget1@etu.univ-nantes.fr  
 Leo BRIGARDIS leo.brigardis@etu.univ-nantes.fr
+
+Vérification des commits automatique
+====================================
+
+A exécuté en local :
+```
+git config --local include.path ../.gitconfig
+```
