@@ -30,3 +30,7 @@ A exécuté en local :
 ```
 git config --local include.path ../.gitconfig
 ```
+
+## Format de commit
+
+![image](https://cdn.discordapp.com/attachments/765491179444764712/1039222782275375204/unknown.png)
