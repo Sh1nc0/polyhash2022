@@ -21,3 +21,4 @@ L'équipe
 Hippolyte ROUSSEL hippolyte.roussel@etu.univ-nantes.fr  
 Romain PIPON romain.pipon@etu.univ-nantes.fr  
 Lilian FORGET lilian.forget1@etu.univ-nantes.fr  
+Leo BRIGARDIS leo.brigardis@etu.univ-nantes.fr
