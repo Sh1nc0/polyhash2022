@@ -16,6 +16,8 @@ L'équipe
 
 à compléter par chaque personne: 1 ligne par personne, indiquant le nom et l'adresse mail de la personne
 
-- qui ?
-Hippolyte ROUSSEL hippolyte.roussel@etu.univ-nantes.fr
-Romain PIPON romain.pipon@etu.univ-nantes.fr
+- Membres :
+
+Hippolyte ROUSSEL hippolyte.roussel@etu.univ-nantes.fr  
+Romain PIPON romain.pipon@etu.univ-nantes.fr  
+Lilian FORGET lilian.forget1@etu.univ-nantes.fr  
