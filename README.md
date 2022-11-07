@@ -17,4 +17,4 @@ L'équipe
 à compléter par chaque personne: 1 ligne par personne, indiquant le nom et l'adresse mail de la personne
 
 - qui ?
-
+Hippolyte ROUSSEL hippolyte.roussel@etu.univ-nantes.fr
