@@ -1,8 +1,22 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+from parser import parse_challenge
+
+if __name__ == "__main__":
+    import argparse
+    parser = argparse.ArgumentParser(description='Solve Poly# challenge.')
+    parser.add_argument('challenge', type=str,
+                        help='challenge definition filename',
+                        metavar="challenge.txt")
+    args = parser.parse_args()
+    challenge = parse_challenge(args.challenge)
+    for i in challenge[1]:
+        print(i)
+    print(len(challenge[1]))
+
 """Module principal pour la mise en oeuvre du projet Poly#.
-"""
+
 
 # Vous pouvez structurer votre code en modules pour améliorer la
 # compréhension et faciliter le travail collaboratif
@@ -24,3 +38,4 @@ if __name__ == "__main__":
     challenge = parse_challenge(args.challenge)
     solution = solve(challenge)
     print(f"Score: {score_solution(solution)}")
+"""
