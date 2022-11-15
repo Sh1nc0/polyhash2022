@@ -24,4 +24,3 @@ if __name__ == "__main__":
     challenge = parse_challenge(args.challenge)
     solution = solve(challenge)
     print(f"Score: {score_solution(solution)}")
-
