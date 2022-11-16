@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from deliveryPoint import DeliveryPoint
+from objects.deliveryPoint import DeliveryPoint
 from math import sqrt
 
 class Santa:
