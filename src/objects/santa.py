@@ -20,7 +20,7 @@ class Santa:
         self.loadedGifts : list[DeliveryPoint] = []     #Cadeau chargé (représenté par leur Delivery Point)
 
     def getDistance(self, dv : DeliveryPoint) -> float :
-        return abs(sqrt((self.x - dv.x) ** 2 + (self.y - dv.y) ** 2))
+        return sqrt((self.x - dv.x) ** 2 + (self.y - dv.y) ** 2)
 
     def getMaxAcc(self) -> int:
         for v in self.maxSpeed :
