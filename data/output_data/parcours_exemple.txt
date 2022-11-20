@@ -1,0 +1,24 @@
+23
+LoadCarrots 10
+LoadGift Olivia
+LoadGift Liam
+AccRight 4
+Float 1
+DeliverGift Olivia
+AccUp 2
+Float 1
+DeliverGift Liam
+AccLeft 8
+Float 1
+AccDown 4
+Float 1
+LoadGift Bob
+AccRight 4
+Float 1
+AccDown 6
+Float 1
+AccDown 6
+Float 1
+AccDown 6
+Float 4
+DeliverGift Bob
