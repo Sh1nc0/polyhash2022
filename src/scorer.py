@@ -46,26 +46,15 @@ import math
 
 
 
-#Parametres de la simulation. Constant apres la lecture du challenge.
-max_time_sec = 0
-delivery_distance = 0
-acceleration_range = 0
-number_of_gifts = 0
-weight_acceleration_ratio = [] #couples des accelerations en fonction du poids total du traineau
-gifts = []
 
-# Variables 
-delivered_gifts = [] # liste de cadeaux livrés. A la fin de la simulation on compte les scores des gifts de l'array pour déterminé le score total.
-float_counter = 0 # Le temps d'execution en secondes. Incrémentée à chaque Float et vérifiée régulièrement. 
-acceleration_this_turn = False # si True, vérrouille la possibilité d'accelerer à nouveau durant le tour.
 
 class Gift: # A verifier mais name doit etre unique en théorie
-    def __init__(self, name:str, score:int, weight:int, target_x:int, target_y :int):
-        self.name = ""
-        self.score = 0
-        self.weight = 0
-        self.target_x = 0
-        self.target_y = 0
+    def __init__(self, name:str, score:int, weight:int, target_c:int, target_r :int):
+        self.name : str = ""
+        self.score : int = 0
+        self.weight : int = 0
+        self.target_c int : = 0
+        self.target_r : int = 0
 
 class Santa: # Entité qui va etre mise a jour durant l'execution du programme pour verifier que tout est bon.
     # Le santa a des ordres absolus:
@@ -74,11 +63,11 @@ class Santa: # Entité qui va etre mise a jour durant l'execution du programme p
 
     def __init__(self) :
 
-        self.x : int = 0                                #Position en X
-        self.y : int = 0                                #Position en Y
+        self.c : int = 0                                #Position en c ou X
+        self.r : int = 0                                #Position en r ou Y
 
-        self.vx : int = 0                               #Vitesse en X
-        self.vy : int = 0                               #Vitesse en Y
+        self.vc : int = 0                               #Vitesse en c ou X
+        self.vr : int = 0                               #Vitesse en r ou Y
 
         self.weight : int = 0                           #Poids du traineau
         self.carrots : int = 0                          #Nombres de carottes
@@ -100,33 +89,33 @@ class Santa: # Entité qui va etre mise a jour durant l'execution du programme p
         return gift
 
     def updatePosition(self) : #s'active à chaque tours
-        self.x += self.vx
-        self.y += self.vy
+        self.c += self.vc
+        self.r += self.vr
 
-    def getMaxAccelerationForCurrentWeight(self) -> int: #retourne l'acceleration max possible selon le tableau en constante globale en fonction du poids total du traineau
+    def getMaxAccelerationForCurrentWeight(self, weight_acceleration_ratio: list[tuple[int,int]]) -> int: #retourne l'acceleration max possible selon le tableau en constante globale en fonction du poids total du traineau. TODO La méthode peut etre sortie de l'objet et peut prendre en param la liste de tuples directement.
         for i in range(len(weight_acceleration_ratio)):
             if self.weight >= weight_acceleration_ratio[i][0]:
                 return weight_acceleration_ratio[i][1]
         return weight_acceleration_ratio[len(weight_acceleration_ratio)-1][1] #return l'acceleration du dernier element de la liste. equivaut l'acceleration maximale possible qui est dans la liste
 
     # 4 fonction de changement d'acceleration
-    def accUp(self, nb : int) : # accélération sur Y
-        self.vy += nb
+    def accUp(self, nb : int) : # accélération sur r Y
+        self.vr += nb
         self.carrots -= 1 # lors d'une acceration, on consomme une carotte peut importe la force de l'acceleration
         self.weight -= 1
     
-    def accDown(self, nb : int) : # deceleration sur Y
-        self.vy -= nb
+    def accDown(self, nb : int) : # deceleration sur r Y
+        self.vr -= nb
         self.carrots -= 1 
         self.weight -= 1
 
-    def accLeft(self, nb : int) : # acceleration sur X
-        self.vx -= nb
+    def accLeft(self, nb : int) : # acceleration sur c X
+        self.vc -= nb
         self.carrots -= 1 
         self.weight -= 1
 
-    def accRight(self, nb : int) : # deceleration sur X
-        self.vx += nb
+    def accRight(self, nb : int) : # deceleration sur c X
+        self.vc += nb
         self.carrots -= 1 
         self.weight -= 1
 
@@ -140,15 +129,15 @@ class Santa: # Entité qui va etre mise a jour durant l'execution du programme p
 
     def toString(self) -> str:
         string = "SANTA : \n"
-        string += "position x : " + str(self.x) + "\n"
-        string += "position y : " + str(self.y) + "\n"
-        string += "velocity x : " + str(self.vx) + "\n"
-        string += "veloity y : " + str(self.vy) + "\n"
+        string += "position c : " + str(self.c) + "\n"
+        string += "position r : " + str(self.r) + "\n"
+        string += "velocity c : " + str(self.vc) + "\n"
+        string += "velocity r : " + str(self.vr) + "\n"
         string += "number of carrots : " + str(self.carrots) + "\n"
         string += "total weight : " + str(self.weight) + "\n"
         string += "gifts:\n
         for gift in self.loadedGifts :
-            string += "{gift.name} : {gift.score}pts, {gift.weight}kg, target_x={gift.target_x}, target_y={gift.target_y}\n"
+            string += "{gift.name} : {gift.score}pts, {gift.weight}kg, target_c={gift.target_c}, target_r={gift.target_r}\n"
         return string
         
 
@@ -166,6 +155,13 @@ if __name__ == "__main__":
 
 
     # RECUPERATION DES PARAMETRES DE LA SIMULATION
+    #Parametres constants apres la lecture du challenge.
+    max_time_se:int = 0
+    delivery_distance:int = 0
+    acceleration_range:int = 0
+    number_of_gifts:int = 0
+    weight_acceleration_ratio: list[tuple[int,int]] = [] #couples des accelerations en fonction du poids total du traineau
+    gifts: list[Gift] = []
 
     #lis la premiere ligne du fichier challenge.txt
     challenge_first_line = file_challenge[0].split(" ")
@@ -184,40 +180,44 @@ if __name__ == "__main__":
         gift_data = file_challenge[i+acceleration_range+1].split(" ")
         gifts[gift_data[0]] = Gift(gift_data[0], int(gift_data[1]), int(gift_data[2]), int(gift_data[3]), int(gift_data[4])) # création de l'objet Gift à partir des infos. Ajout dans le dict par son nom unique.
 
-
     # creation d'un santa
     santa = Santa()
 
+    # Variables 
+    delivered_gifts: list[Gift] = [] # liste de cadeaux livrés. A la fin de la simulation on compte les scores des gifts de l'array pour déterminé le score total.
+    float_counter: int = 0 # Le temps d'execution en secondes. Incrémentée à chaque Float et vérifiée régulièrement. 
+    acceleration_this_turn: bool = False # si True, vérrouille la possibilité d'accelerer à nouveau durant le tour.
 
-    # VERIFICATION DES REGLES
+
+    # VERIFICATION DES REGLES:
 
     # Regle 1 : La première ligne indique le nombre de ligne dans le fichier sans compter la première ligne.
     if len(file_parcours) != file_parcours[0]+1:
         raise Exception("Erreur ligne {0} : Le fichier parcours ne contient pas le nombre de lignes indiqué")
     
-    # Parcours de toutes les lignes du fichier parcours.txt
+    # Parcours de toutes les lignes du fichier parcours.txt une par une.
     for i in range(len(file_parcours)):
         
         # Regle 2 : Pas de ligne vide dans le fichier file_parcours
         if file_parcours[i] == "":
             raise Exception("Erreur ligne {i} : La ligne est vide")
 
-        # OPERATIONS
-        # LoadCarrots
-        if file_parcours[i].split(" ")[0] == "LoadCarrots":
-            #vérifications de coordonnées:
-            if sqrt(abs(santa.x)**2 + abs(santa.y)**2) > delivery_distance:
+        # OPERATIONS:
+        # LoadSomething:
+        instruction = file_parcours[i].split(" ")[0]
+        if instruction == "LoadCarrots" or instruction == "LoadGifts" :
+            #coordonnées du point de chargement:
+            chargement_c = 0 
+            chargement_r = 0
+            
+            if sqrt(abs(santa.c - chargement_c)**2 + abs(santa.r - chargement_r)**2) > delivery_distance:
                 raise Exception("Erreur ligne {i} : Le pere noel ne peut pas charger de cadeaux ou de carottes s'il n'est pas aux coordonnées 0,0")
             else:
-                santa.loadCarrots(file_parcours[i].split(" ")[1])
-
-        # LoadGift
-        if file_parcours[i].split(" ")[0] == "LoadGift":
-            #vérifications de coordonnées:
-            if sqrt(abs(santa.x)**2 + abs(santa.y)**2) > delivery_distance:
-                raise Exception("Erreur ligne {i} : Le pere noel ne peut pas charger de cadeaux ou de carottes s'il n'est pas aux coordonnées 0,0")
-            else:
-                santa.loadGift(gifts[file_parcours[i].split(" ")[1]]) # on prend le gift correspond dans notre dictionnaire de gifts et on le charge dans le santa
+                match instruction:
+                    case "LoadCarrots":
+                        santa.loadCarrots(int(file_parcours[i].split(" ")[1]))
+                    case "LoadGifts":
+                        santa.loadedGifts.append(gifts[file_parcours[i].split(" ")[1]]) # on prend le gift correspond dans notre dictionnaire de gifts et on le charge dans le santa
 
         #DeliverGift
         if file_parcours[i].split(" ")[0] == "DeliverGift":
@@ -225,8 +225,10 @@ if __name__ == "__main__":
             if santa.gift[file_parcours[i].split(" ")[1]] is None:
                 raise Exception("Erreur ligne {i}. Le pere noel n'a pas chargé ce cadeau")
 
+            gift = santa.gifts[file_parcours[i].split(" ")[1]]
+
             #vérif si coordonnées dans la range minimal
-            if sqrt(abs(santa.x)**2 + abs(santa.y)**2) < delivery_distance:
+            if sqrt(abs(santa.c - gift.target_c)**2 + abs(santa.r - gift.target_r)**2) < delivery_distance:
                 raise Exception("Erreur ligne {i} : Le pere noel ne peut pas déposer de cadeaux s'il n'est pas dans la zone de livraison.")
             else:
                 delivered_gifts.append(santa.deliverGift(file_parcours[i].split(" ")[1])) # on déplace le cadeau du traineau vers la liste des cadeaux livré. On compteras plus tard les score des cadeaux dans cette liste.
@@ -238,7 +240,7 @@ if __name__ == "__main__":
             if acceleration_this_turn == True: # A ton deja acceléré ce tour ?
                 raise Exception("Erreur ligne {i} : Le pere noel ne peut pas accélérer plus d'une fois par tour")
             
-            maxAcceleration = santa.getMaxAccelerationForCurrentWeight() # Quel accceleration max peut il effectuer ?
+            maxAcceleration = santa.getMaxAccelerationForCurrentWeight() # Quel accceleration max peut on effectuer ?
             acc = file_parcours[i].split(" ")[1]
             if acc > maxAcceleration: # Tente on d'accelerer plus que autorisé ?
                 raise Exception("Erreur ligne {i}. Acceleration {acc}m/s² trop forte ! Max autorisé {maxAcceleration}m/s² pour {self.weight}kg.") 
@@ -259,7 +261,7 @@ if __name__ == "__main__":
         if file_parcours[i].split(" ")[0] == "Float":
             att = file_parcours[i].split(" ")[1]
             if att > 1:
-                raise Exception("Avertissement ligne {i}. Attente superieur à 1 : {att}s. Etes vous sur de perdre du temps sans rien faire ?")
+                raise Exception("Avertissement ligne {i}. Attente superieur à 1s : {att}s. Etes vous sur de perdre du temps sans rien faire ?")
             santa.Float(att)
             float_counter += att
             acceleration_this_turn = False # on a flotté, donc on pourras accélérer à nouveau
