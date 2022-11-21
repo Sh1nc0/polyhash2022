@@ -53,7 +53,7 @@ class Gift: # A verifier mais name doit etre unique en théorie
         self.name : str = ""
         self.score : int = 0
         self.weight : int = 0
-        self.target_c int : = 0
+        self.target_c : int = 0
         self.target_r : int = 0
 
 class Santa: # Entité qui va etre mise a jour durant l'execution du programme pour verifier que tout est bon.
@@ -92,7 +92,7 @@ class Santa: # Entité qui va etre mise a jour durant l'execution du programme p
         self.c += self.vc
         self.r += self.vr
 
-    def getMaxAccelerationForCurrentWeight(self, weight_acceleration_ratio: list[tuple[int,int]]) -> int: #retourne l'acceleration max possible selon le tableau en constante globale en fonction du poids total du traineau. TODO La méthode peut etre sortie de l'objet et peut prendre en param la liste de tuples directement.
+    def getMaxAccelerationForCurrentWeight(self, weight_acceleration_ratio) -> int: #retourne l'acceleration max possible selon le tableau en constante globale en fonction du poids total du traineau. TODO Ajouter le typage valide
         for i in range(len(weight_acceleration_ratio)):
             if self.weight >= weight_acceleration_ratio[i][0]:
                 return weight_acceleration_ratio[i][1]
@@ -135,7 +135,7 @@ class Santa: # Entité qui va etre mise a jour durant l'execution du programme p
         string += "velocity r : " + str(self.vr) + "\n"
         string += "number of carrots : " + str(self.carrots) + "\n"
         string += "total weight : " + str(self.weight) + "\n"
-        string += "gifts:\n
+        string += "gifts:\n"
         for gift in self.loadedGifts :
             string += "{gift.name} : {gift.score}pts, {gift.weight}kg, target_c={gift.target_c}, target_r={gift.target_r}\n"
         return string
@@ -213,11 +213,10 @@ if __name__ == "__main__":
             if sqrt(abs(santa.c - chargement_c)**2 + abs(santa.r - chargement_r)**2) > delivery_distance:
                 raise Exception("Erreur ligne {i} : Le pere noel ne peut pas charger de cadeaux ou de carottes s'il n'est pas aux coordonnées 0,0")
             else:
-                match instruction:
-                    case "LoadCarrots":
-                        santa.loadCarrots(int(file_parcours[i].split(" ")[1]))
-                    case "LoadGifts":
-                        santa.loadedGifts.append(gifts[file_parcours[i].split(" ")[1]]) # on prend le gift correspond dans notre dictionnaire de gifts et on le charge dans le santa
+                if instruction == "LoadCarrots":
+                    santa.loadCarrots(int(file_parcours[i].split(" ")[1]))
+                elif instruction == "LoadGifts":
+                    santa.loadedGifts.append(gifts[file_parcours[i].split(" ")[1]]) # on prend le gift correspond dans notre dictionnaire de gifts et on le charge dans le santa
 
         #DeliverGift
         if file_parcours[i].split(" ")[0] == "DeliverGift":
@@ -245,15 +244,14 @@ if __name__ == "__main__":
             if acc > maxAcceleration: # Tente on d'accelerer plus que autorisé ?
                 raise Exception("Erreur ligne {i}. Acceleration {acc}m/s² trop forte ! Max autorisé {maxAcceleration}m/s² pour {self.weight}kg.") 
             
-            match instruction:
-                case "AccRight":
-                    santa.accRight(acc)
-                case "AccLeft":
-                    santa.accLeft(acc)
-                case "AccUp":
-                    santa.accUp(acc)
-                case "AccDown":
-                    santa.accDown(acc)
+            if instruction == "AccRight":
+                santa.accRight(acc)
+            elif instruction == "AccLeft":
+                santa.accLeft(acc)
+            elif instruction == "AccUp":
+                santa.accUp(acc)
+            elif instruction == "AccDown":
+                santa.accDown(acc)
                 
             acceleration_this_turn = True # changement d'état. Le pere noel ne pourra plus accelerer jusqu'au prochain Float.
 
@@ -271,10 +269,10 @@ if __name__ == "__main__":
             raise Exception("Erreur ligne {i}. Le temps de jeu max est dépassé. Ecoulé : {att}s. Max : {max_time_sec}")
 
     # Calcul score:
-    total_score:
+    total_score:int = 0
     for gift in delivered_gifts:
         total += gift.score
-    return total_score
+    print(total_score)
 
 
 
