@@ -164,6 +164,9 @@ if __name__ == "__main__":
     # lecture des fichiers
     file_challenge = open(file_path_challenge, "r")
     file_parcours = open(file_path_parcours, "r")
+    num_lines = sum(1 for line in file_parcours)
+    file_parcours = open(file_path_parcours, "r")
+
 
     # RECUPERATION DES PARAMETRES DE LA SIMULATION
     #Parametres constants apres la lecture du challenge.
@@ -213,7 +216,6 @@ if __name__ == "__main__":
         if i == 0:
             print(int(line))
             # Regle 1 : La première ligne indique le nombre de ligne dans le fichier sans compter la première ligne.
-            num_lines = sum(1 for line in file_parcours)
             if num_lines != int(line)+1: # TODO vérifier comment connaitre le nombre de ligne d'un fichier
                 raise Exception("Erreur ligne 0 : Le fichier parcours ne contient pas le nombre de lignes indiqué")
         
