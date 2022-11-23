@@ -2,12 +2,12 @@ image: python:latest
 
 before_script:
   - python --version
+  - cd tests
 
 stages:
   - Test
 
-test:
+Parser:
   stage: Test
   script:
-    - cd tests
-    - python Test.py
+    - python TestParser.py
