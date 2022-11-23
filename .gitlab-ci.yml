@@ -1,0 +1,13 @@
+image: python:latest
+
+before_script:
+  - python --version
+
+stage:
+  - Test
+
+test:
+  stage: Test
+  script:
+    - cd tests
+    - python Test.py
