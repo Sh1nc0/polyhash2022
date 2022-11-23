@@ -85,3 +85,7 @@ def test():
     testFileD()
     testFileE()
     testFileF()
+
+if __name__ == "__main__":
+    test()
+    print("All tests passed")
