@@ -62,7 +62,7 @@ def testFileE():
     assert p.deliveryDistance == 30
     assert p.nbAcc == 7
     assert p.nbGifts == 10000
-    assert p.santa.maxSpeed == [(16000,10),(20000,9),(24000,7),(28000,5),(32000,3)(36000,2),(40000,1)]
+    assert p.santa.maxSpeed == [(16000, 10), (20000, 9), (24000, 7), (28000, 5), (32000, 3), (36000, 2), (40000, 1)]
     assert p.nbGifts == len(p.deliveryPoints)
 
 
