@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from objects.santa import Santa
-from objects.deliveryPoint import DeliveryPoint
+from objects.gift import Gift
 
 class Game :
 
@@ -17,7 +17,7 @@ class Game :
 
         self.santa : Santa = None
 
-        self.toDeliver : list[DeliveryPoint] = []
+        self.toDeliver : list[Gift] = []
 
     def accelerate(self, nb : int, dir : str) :
         if dir.lower() == "up" :
@@ -49,15 +49,15 @@ class Game :
         
         self.actionCount += 1
 
-    def loadGift(self, dv : DeliveryPoint) :
-        self.toDeliver.remove(dv)
-        self.santa.loadedGifts.append(dv)
-        self.santa.weight += dv.weight
+    def loadGift(self, g : Gift) :
+        self.toDeliver.remove(g)
+        self.santa.loadedGifts.append(g)
+        self.santa.weight += g.weight
 
         self.actionCount += 1
 
-    def deliverGift(self, dv : DeliveryPoint) :
-        self.santa.loadedGifts.remove(dv)
-        self.santa.weight -= dv.weight
+    def deliverGift(self, g : Gift) :
+        self.santa.loadedGifts.remove(g)
+        self.santa.weight -= g.weight
 
         self.actionCount += 1

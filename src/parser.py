@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from objects.deliveryPoint import DeliveryPoint
+from objects.gift import Gift
 from objects.santa import Santa
 
 class Parser:
@@ -15,7 +15,7 @@ class Parser:
         self.nbGifts: int = 0
 
         self.santa: Santa = Santa()
-        self.deliveryPoints: list = []
+        self.gifts: list[Gift] = []
 
     def parse(self):
         with open(self.filename, "r") as f:
@@ -47,11 +47,11 @@ class Parser:
 
             if len(properties) == 5:
                 """
-                    DeliveryPoint
+                    Gift
                     properties[0]: Name
                     properties[1]: Score
                     properties[2]: Weight
                     properties[3]: X
                     properties[4]: Y
                 """
-                self.deliveryPoints.append(DeliveryPoint(properties[0], int(properties[1]), int(properties[2]), int(properties[3]), int(properties[4])))
+                self.gifts.append(Gift(properties[0], int(properties[1]), int(properties[2]), int(properties[3]), int(properties[4])))

@@ -1,7 +1,6 @@
 import sys
 sys.path.insert(1, '../src')
 from parser import Parser
-from objects.deliveryPoint import DeliveryPoint
 
 data_path = "../data/input_data"
 

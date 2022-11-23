@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from objects.deliveryPoint import DeliveryPoint
+from objects.gift import Gift
 from math import sqrt
 
 class Santa:
@@ -17,7 +17,7 @@ class Santa:
         self.maxSpeed : list[tuple[int,int]] = []       #Palier de vitesse
         self.carrots : int = 0                          #Nombres de carottes
 
-        self.loadedGifts : list[DeliveryPoint] = []     #Cadeau chargé (représenté par leur Delivery Point)
+        self.loadedGifts : list[Gift] = []     #Cadeau chargé
 
     def getDistance(self, x, y) -> float :
         return sqrt((self.x - x) ** 2 + (self.y - y) ** 2)

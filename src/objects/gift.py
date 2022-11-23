@@ -1,4 +1,4 @@
-class DeliveryPoint:
+class Gift:
 
     def __init__(self, name, score, weight, x, y):
         self.name: str = name
@@ -8,4 +8,4 @@ class DeliveryPoint:
         self.y: int = y
 
     def __str__(self):
-        return f"DeliveryPoint: {self.name} {self.score} {self.weight} {self.x} {self.y}"
+        return f"Gift: {self.name} {self.score} {self.weight} {self.x} {self.y}"
