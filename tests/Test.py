@@ -5,4 +5,4 @@ import TestParser
 
 if __name__ == "__main__":
    TestParser.test()
-   print("[TEST] Tests on parser succesful!")
+   print("[TEST] Tests on parser successful!")
