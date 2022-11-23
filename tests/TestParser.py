@@ -1,6 +1,7 @@
 import sys
 sys.path.insert(1, '../src')
 from parser import Parser
+from objects.gift import Gift
 
 data_path = "../data/input_data"
 
@@ -14,7 +15,7 @@ def testFileA():
     assert p.nbAcc == 4
     assert p.nbGifts == 4
     assert p.santa.maxSpeed == [(15,8),(30,6),(45,4),(60,2)]
-    assert p.nbGifts == len(p.deliveryPoints)
+    assert p.nbGifts == len(p.gifts)
 
 
 def testFileB():
@@ -26,7 +27,7 @@ def testFileB():
     assert p.nbAcc == 5
     assert p.nbGifts == 1000
     assert p.santa.maxSpeed == [(2000,20),(3000,15),(5000,10),(6000,9),(7000,8)]
-    assert p.nbGifts == len(p.deliveryPoints)
+    assert p.nbGifts == len(p.gifts)
 
 
 def testFileC():
@@ -38,7 +39,7 @@ def testFileC():
     assert p.nbAcc == 3
     assert p.nbGifts == 10000
     assert p.santa.maxSpeed == [(10000,4),(20000,2),(40000,1)]
-    assert p.nbGifts == len(p.deliveryPoints)
+    assert p.nbGifts == len(p.gifts)
 
 
 def testFileD():
@@ -50,7 +51,7 @@ def testFileD():
     assert p.nbAcc == 1
     assert p.nbGifts == 5000
     assert p.santa.maxSpeed == [(1000,100)]
-    assert p.nbGifts == len(p.deliveryPoints)
+    assert p.nbGifts == len(p.gifts)
 
 
 def testFileE():
@@ -62,7 +63,7 @@ def testFileE():
     assert p.nbAcc == 7
     assert p.nbGifts == 10000
     assert p.santa.maxSpeed == [(16000, 10), (20000, 9), (24000, 7), (28000, 5), (32000, 3), (36000, 2), (40000, 1)]
-    assert p.nbGifts == len(p.deliveryPoints)
+    assert p.nbGifts == len(p.gifts)
 
 
 def testFileF():
@@ -74,7 +75,7 @@ def testFileF():
     assert p.nbAcc == 3
     assert p.nbGifts == 10000
     assert p.santa.maxSpeed == [(10000,4),(20000,2),(40000,1)]
-    assert p.nbGifts == len(p.deliveryPoints)
+    assert p.nbGifts == len(p.gifts)
 
 
 def test():
