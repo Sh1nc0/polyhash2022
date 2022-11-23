@@ -3,7 +3,7 @@ image: python:latest
 before_script:
   - python --version
 
-stage:
+stages:
   - Test
 
 test:
