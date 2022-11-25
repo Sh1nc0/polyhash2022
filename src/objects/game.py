@@ -26,13 +26,13 @@ class Game :
 
     def accelerate(self, nb : int, dir : str) :
         if dir.lower() == "up" :
-            self.santa.vx += nb
-        elif dir.lower() == "down" :
-            self.santa.vx -= nb
-        elif dir.lower() == "right" :
             self.santa.vy += nb
-        elif dir.lower() == "up" :
+        elif dir.lower() == "down" :
             self.santa.vy -= nb
+        elif dir.lower() == "right" :
+            self.santa.vx += nb
+        elif dir.lower() == "left" :
+            self.santa.vx -= nb
         else :
             return
 
