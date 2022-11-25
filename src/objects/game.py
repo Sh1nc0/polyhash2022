@@ -3,21 +3,26 @@
 
 from objects.santa import Santa
 from objects.gift import Gift
+from parser import Parser
 
 class Game :
 
-    def __init__(self) :
+    def __init__(self, p : Parser) :
+
+        if p is None :
+            raise Exception
+
         self.actionCount : int = 0
-        self.maxDeliveryDistance : int = 0
+        self.maxDeliveryDistance : int = p.deliveryDistance
         
-        self.timeLimit : int = 0
+        self.timeLimit : int = p.time
         self.timeCount : int = 0
 
         self.score : int = 0
 
-        self.santa : Santa = None
+        self.santa : Santa = p.santa
 
-        self.toDeliver : list[Gift] = []
+        self.toDeliver : list[Gift] = p.gifts
 
     def accelerate(self, nb : int, dir : str) :
         if dir.lower() == "up" :
