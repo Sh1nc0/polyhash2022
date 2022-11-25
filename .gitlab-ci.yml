@@ -11,3 +11,8 @@ Parser:
   stage: Test
   script:
     - python TestParser.py
+
+Game:
+  stage: Test
+  script:
+    - python TestGame.py
