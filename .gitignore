@@ -188,3 +188,6 @@ Temporary Items
 .apdisk
 
 hooks/*
+
+#Dossier d'output du programme
+data/output_data
