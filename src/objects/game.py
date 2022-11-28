@@ -8,7 +8,7 @@ import os
 
 class Game :
 
-    def __init__(self, p : Parser, output_dist: str = "../data/output_data/output.txt") :
+    def __init__(self, p : Parser) :
 
         if p is None :
             raise Exception
@@ -25,7 +25,6 @@ class Game :
 
         self.toDeliver : list[Gift] = p.gifts
 
-        self.dist : str = output_dist
         self.outputString : list[str] = []
 
     def accelerate(self, nb : int, dir : str) :
@@ -80,9 +79,9 @@ class Game :
         self.outputString.append(f"DeliverGift {g.name}\n")
         self.actionCount += 1
 
-    def finish(self) :
-        os.makedirs(name=os.path.dirname(self.dist), exist_ok=True)
-        with open(self.dist, 'w') as f :
+    def finish(self, outputDirectory: str = "../data/output_data/output.txt") :
+        os.makedirs(name=os.path.dirname(outputDirectory), exist_ok=True)
+        with open(outputDirectory, 'w') as f :
             f.write(f"{self.actionCount}\n")
             
             for line in self.outputString:
