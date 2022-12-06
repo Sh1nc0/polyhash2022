@@ -54,7 +54,7 @@ class Game :
         self.outputString.append(f"Float {nb}\n")
         self.actionCount += 1
 
-        for _ in nb :
+        for _ in range(nb) :
             self.santa.updatePosition()
 
     def loadCarrots(self, nbCarrots : int) :
