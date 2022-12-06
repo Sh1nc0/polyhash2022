@@ -75,6 +75,7 @@ class Game :
     def deliverGift(self, g : Gift) :
         self.santa.loadedGifts.remove(g)
         self.santa.weight -= g.weight
+        self.score += g.score
 
         self.outputString.append(f"DeliverGift {g.name}\n")
         self.actionCount += 1
