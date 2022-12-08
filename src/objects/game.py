@@ -24,6 +24,7 @@ class Game :
         self.santa : Santa = p.santa
 
         self.toDeliver : list[Gift] = p.gifts
+        self.deliveredGifts : list[Gift] = []
 
         self.outputString : list[str] = []
 
@@ -73,6 +74,7 @@ class Game :
         self.actionCount += 1
 
     def deliverGift(self, g : Gift) :
+        self.deliveredGifts.append(g)
         self.santa.loadedGifts.remove(g)
         self.santa.weight -= g.weight
         self.score += g.score
