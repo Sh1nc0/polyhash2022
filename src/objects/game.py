@@ -88,3 +88,9 @@ class Game :
             for line in self.outputString:
                 f.write(line)
         f.close()
+
+    def findGiftIndex(self, name : str) -> int :
+        for i in range(len(self.toDeliver)) :
+            if self.toDeliver[i].name == name :
+                return i
+        return -1
