@@ -55,7 +55,7 @@ if __name__ == "__main__":
             raise Exception("Erreur ligne "+str(i)+" : La ligne est vide")
         
         # OPERATIONS:
-        instruction: str = line.split("\n")[0].split(" ")[0]
+        instruction: str = line.split()[0]
         
         # LoadSomething:
         if instruction == LOAD_CARROTS or instruction == LOAD_GIFT :
@@ -63,24 +63,24 @@ if __name__ == "__main__":
             chargement_x: int = 0 
             chargement_y: int = 0
             
-            if sqrt(abs(g.santa.x - chargement_x)**2 + abs(g.santa.y - chargement_y)**2) > g.maxDeliveryDistance:
+            if g.santa.getDistance(chargement_x, chargement_y) > g.maxDeliveryDistance:
                 raise Exception("Erreur ligne "+str(i)+" : Le pere noel ne peut pas charger de cadeaux ou de carottes s'il n'est pas aux coordonnées 0,0")
            
             else:
                 if instruction == LOAD_CARROTS:
-                    nb: int = int(line.split(" ")[1])
+                    nb: int = int(line.split()[1])
                     g.loadCarrots(nb)
                     print(LOAD_CARROTS,nb, " -> total carrots", g.santa.carrots)
 
                 elif instruction == LOAD_GIFT:
-                    gift_name = line.split("\n")[0].split(" ")[1]
+                    gift_name = line.split()[1]
                     g.loadGift(g.toDeliver[g.findGiftIndex(gift_name)])
                     print(LOAD_GIFT, gift_name, " -> total weight", g.santa.weight)
 
         #DeliverGift
         if instruction == DELIVER_GIFT:
             # verif si cadeau chargé
-            gift_name = line.split("\n")[0].split(" ")[1]
+            gift_name = line.split()[1]
             print(DELIVER_GIFT, gift_name)
             if g.santa.findGift(gift_name) == -1:
                 raise Exception("Erreur ligne "+str(i)+". Le pere noel n'a pas chargé le cadeau de", gift_name)
@@ -88,19 +88,19 @@ if __name__ == "__main__":
             gift = g.santa.loadedGifts[g.santa.findGift(gift_name)]
 
             #vérif si coordonnées dans la range minimal
-            if sqrt(abs(g.santa.x - gift.x)**2 + abs(g.santa.y - gift.y)**2) < g.maxDeliveryDistance:
+            if g.santa.getDistance(gift.x, gift.y) > g.maxDeliveryDistance:
                 raise Exception("Erreur ligne "+str(i)+" : Le pere noel ne peut pas déposer le cadeau",gift_name,"car il n'est pas dans la zone de livraison.")
             else:
                 g.deliverGift(gift)
 
         # Acceleration:
-        if instruction == "AccRight" or instruction == "AccLeft" or instruction == ACCELERATE_UP or instruction == ACCELERATE_DOWN:
+        if instruction == ACCELERATE_RIGHT or instruction == ACCELERATE_LEFT or instruction == ACCELERATE_UP or instruction == ACCELERATE_DOWN:
             
             if acceleration_this_turn == True: # A ton deja acceléré ce tour ?
                 raise Exception("Erreur ligne "+str(i)+" : Le pere noel ne peut pas accélérer plus d'une fois par tour")
             
             maxAcceleration = g.santa.getMaxAcc() # Quel accceleration max peut on effectuer ?
-            acc = int(line.split(" ")[1])
+            acc = int(line.split()[1])
             if acc > maxAcceleration: # Tente on d'accelerer plus que autorisé ?
                 raise Exception("Erreur ligne "+str(i)+". Acceleration "+str(acc)+"m/s² trop forte ! Max autorisé "+str(maxAcceleration)+"m/s² pour "+str(g.santa.weight)+"kg.") 
             
@@ -121,7 +121,7 @@ if __name__ == "__main__":
 
         # Float
         if instruction == FLOAT:
-            att = int(line.split(" ")[1])
+            att = int(line.split()[1])
             g.floatX(att)
             print(FLOAT, att)
             acceleration_this_turn = False # on a floatté, donc on pourra accélérer à nouveau
