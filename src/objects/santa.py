@@ -31,3 +31,9 @@ class Santa:
     def updatePosition(self) :
         self.x += self.vx
         self.y += self.vy
+    
+    def findGift(self, name : str) -> int :
+        for i in range(len(self.loadedGifts)) :
+            if self.loadedGifts[i].name == name :
+                return i
+        return -1

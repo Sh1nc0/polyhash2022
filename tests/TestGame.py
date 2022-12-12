@@ -3,6 +3,7 @@ sys.path.insert(1, '../src')
 from parser import Parser
 from objects.gift import Gift
 from objects.game import Game
+from util.constants import *
 
 data_path = "../data/input_data"
 
@@ -44,11 +45,11 @@ def testFunctions():
     assert g.santa.loadedGifts[0].name == "Olivia" and g.santa.loadedGifts[0].score == 1 and g.santa.loadedGifts[0].weight == 10 and g.santa.loadedGifts[0].x == 5 and g.santa.loadedGifts[0].y == 1
     assert g.santa.weight == 20
 
-    g.accelerate(1, "up")
+    g.accelerate(1, ACCELERATE_UP)
     assert g.santa.vy == 1
     assert g.santa.carrots == 9
 
-    g.accelerate(5, "right")
+    g.accelerate(5, ACCELERATE_RIGHT)
     assert g.santa.vx == 5
     assert g.santa.carrots == 8
 
