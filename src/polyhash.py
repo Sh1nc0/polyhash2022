@@ -10,16 +10,16 @@ def getDistXDistY(a:int, b:int, x:int, y:int):
 def stopMoving(game : Game) :
     if g.santa.vx != 0 :
         if g.santa.vx > 0 :
-            g.accelerate(g.santa.vx, "left")
+            g.accelerate(g.santa.vx, "AccLeft")
         else :
-            g.accelerate(-g.santa.vx, "right")
+            g.accelerate(-g.santa.vx, "AccRight")
         g.floatX(1)
 
     if g.santa.vy != 0 :
         if g.santa.vy > 0 :
-            g.accelerate(g.santa.vy, "down")
+            g.accelerate(g.santa.vy, "AccDown")
         else :
-            g.accelerate(-g.santa.vy, "up")
+            g.accelerate(-g.santa.vy, "AccUp")
         g.floatX(1)
 
 def goTo(x : int, y : int, game : Game) :
@@ -31,12 +31,11 @@ def goTo(x : int, y : int, game : Game) :
     while (g.santa.x != x) and (not inRange) :
 
         print(f"{g.timeCount}/{g.timeLimit}        {g.santa.vx} {g.santa.x, g.santa.y}")
-
         if g.santa.vx == 0 :
             if g.santa.x < x :
-                g.accelerate(1, "right")
+                g.accelerate(1, "AccRight")
             else :
-                g.accelerate(1, "left")
+                g.accelerate(1, "AccLeft")
         g.floatX(1)
 
         inRange = g.santa.getDistance(x, y) <= g.maxDeliveryDistance
@@ -60,9 +59,9 @@ def goTo(x : int, y : int, game : Game) :
 
         if g.santa.vy == 0 :
             if g.santa.y < y :
-                g.accelerate(1, "up")
+                g.accelerate(1, "AccUp")
             else :
-                g.accelerate(1, "down")
+                g.accelerate(1, "AccDown")
         g.floatX(1)
 
         inRange = g.santa.getDistance(x, y) <= g.maxDeliveryDistance
