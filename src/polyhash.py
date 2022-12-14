@@ -45,6 +45,7 @@ def goTo(x : int, y : int, game : Game) :
 
         if g.timeCount >= g.timeLimit :
             g.finish()
+            print(f"score : {g.score}")
             exit()
 
     print(f"{g.timeCount}/{g.timeLimit}    done x | actual pos {g.santa.x, g.santa.y}")
@@ -52,6 +53,7 @@ def goTo(x : int, y : int, game : Game) :
     stopMoving(game)
     if g.timeCount >= g.timeLimit :
         g.finish()
+        print(f"score : {g.score}")
         exit()
 
     print(f"{g.timeCount}/{g.timeLimit}    starting y | objective {y}")
@@ -71,6 +73,7 @@ def goTo(x : int, y : int, game : Game) :
 
         if g.timeCount >= g.timeLimit :
             g.finish()
+            print(f"score : {g.score}")
             exit()
 
     print(f"{g.timeCount}/{g.timeLimit}    done y")
@@ -78,6 +81,7 @@ def goTo(x : int, y : int, game : Game) :
     stopMoving(game)
     if g.timeCount >= g.timeLimit :
             g.finish()
+            print(f"score : {g.score}")
             exit()
 
 if __name__ == "__main__":
@@ -97,7 +101,8 @@ if __name__ == "__main__":
         print(f"{g.timeCount}/{g.timeLimit} Gift : {i}")
         
         g.loadGift(i)
-        g.loadCarrots(8 - g.santa.carrots)
+        if g.santa.carrots < 8 :
+            g.loadCarrots(8 - g.santa.carrots)
 
         goTo(i.x, i.y, g)
 
@@ -110,4 +115,5 @@ if __name__ == "__main__":
 
         print(f"{g.timeCount}/{g.timeLimit} Retour terminé : 0 0 | {g.santa.x, g.santa.y} {g.santa.vx, g.santa.vy}\n\n")
 
+    print(f"score : {g.score}")
     g.finish()
