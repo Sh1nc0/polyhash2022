@@ -1,6 +1,7 @@
 from objects.game import Game
 from parser import Parser
 from math import sqrt
+import argparse
 
 from util.constants import *
 
@@ -81,7 +82,11 @@ def goTo(x : int, y : int, game : Game) :
 
 if __name__ == "__main__":
 
-    p = Parser("../data/input_data/f_festive_flyover.in.txt")
+    args = argparse.ArgumentParser(description='File Input')
+    args.add_argument('fileInput', type=str, help='challenge definition filename', metavar="challenge.txt")
+    args = args.parse_args()
+
+    p = Parser(args.fileInput)
     p.parse()
 
     g = Game(p)
