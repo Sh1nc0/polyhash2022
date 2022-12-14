@@ -2,6 +2,8 @@ from objects.game import Game
 from parser import Parser
 from math import sqrt
 
+from util.constants import *
+
 import time
 
 def getDistXDistY(a:int, b:int, x:int, y:int):
@@ -10,16 +12,16 @@ def getDistXDistY(a:int, b:int, x:int, y:int):
 def stopMoving(game : Game) :
     if g.santa.vx != 0 :
         if g.santa.vx > 0 :
-            g.accelerate(g.santa.vx, "AccLeft")
+            g.accelerate(g.santa.vx, ACCELERATE_LEFT)
         else :
-            g.accelerate(-g.santa.vx, "AccRight")
+            g.accelerate(-g.santa.vx, ACCELERATE_RIGHT)
         g.floatX(1)
 
     if g.santa.vy != 0 :
         if g.santa.vy > 0 :
-            g.accelerate(g.santa.vy, "AccDown")
+            g.accelerate(g.santa.vy, ACCELERATE_DOWN)
         else :
-            g.accelerate(-g.santa.vy, "AccUp")
+            g.accelerate(-g.santa.vy, ACCELERATE_UP)
         g.floatX(1)
 
 def goTo(x : int, y : int, game : Game) :
@@ -33,9 +35,9 @@ def goTo(x : int, y : int, game : Game) :
         print(f"{g.timeCount}/{g.timeLimit}        {g.santa.vx} {g.santa.x, g.santa.y}")
         if g.santa.vx == 0 :
             if g.santa.x < x :
-                g.accelerate(1, "AccRight")
+                g.accelerate(1, ACCELERATE_RIGHT)
             else :
-                g.accelerate(1, "AccLeft")
+                g.accelerate(1, ACCELERATE_LEFT)
         g.floatX(1)
 
         inRange = g.santa.getDistance(x, y) <= g.maxDeliveryDistance
@@ -59,9 +61,9 @@ def goTo(x : int, y : int, game : Game) :
 
         if g.santa.vy == 0 :
             if g.santa.y < y :
-                g.accelerate(1, "AccUp")
+                g.accelerate(1, ACCELERATE_UP)
             else :
-                g.accelerate(1, "AccDown")
+                g.accelerate(1, ACCELERATE_DOWN)
         g.floatX(1)
 
         inRange = g.santa.getDistance(x, y) <= g.maxDeliveryDistance
@@ -79,7 +81,7 @@ def goTo(x : int, y : int, game : Game) :
 
 if __name__ == "__main__":
 
-    p = Parser("../data/input_data/a_an_example.in.txt")
+    p = Parser("../data/input_data/f_festive_flyover.in.txt")
     p.parse()
 
     g = Game(p)
