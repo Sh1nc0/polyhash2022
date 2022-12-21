@@ -36,4 +36,4 @@ a_an_example_scorer:
     - a_an_example
   script:
     - cd ../src
-    - python scorer.py ../data/output_data/a_an_example.out.txt
+    - python scorer.py ../data/input_data/a_an_example.in.txt ../data/output_data/a_an_example.out.txt
