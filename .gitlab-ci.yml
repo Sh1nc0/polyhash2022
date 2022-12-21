@@ -25,5 +25,5 @@ a_an_example:
     - python polyhash.py ../data/input_data/a_an_example.in.txt
   artifacts:
     paths:
-      - ../data/output_data/*.txt
+      - data/output_data/*.txt
     expire_in: 1 week
