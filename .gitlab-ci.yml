@@ -7,6 +7,7 @@ before_script:
 stages:
   - Test
   - Run
+  - Scorer
 
 Parser:
   stage: Test
@@ -27,3 +28,12 @@ a_an_example:
     paths:
       - data/output_data/*.txt
     expire_in: 1 week
+
+a_an_example_scorer:
+  stage: Scorer
+  needs: [a_an_example]
+  dependencies:
+    - a_an_example
+  script:
+    - cd ../src
+    - python scorer.py ../data/output_data/a_an_example.out.txt
