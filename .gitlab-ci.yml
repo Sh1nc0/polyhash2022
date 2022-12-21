@@ -29,6 +29,56 @@ a_an_example:
       - data/output_data/*.txt
     expire_in: 1 week
 
+b_better_hurry:
+  stage: Run
+  script:
+    - cd ../src
+    - python polyhash.py ../data/input_data/b_better_hurry.in.txt
+  artifacts:
+    paths:
+      - data/output_data/*.txt
+    expire_in: 1 week
+
+c_carousel:
+  stage: Run
+  script:
+    - cd ../src
+    - python polyhash.py ../data/input_data/c_carousel.in.txt
+  artifacts:
+    paths:
+      - data/output_data/*.txt
+    expire_in: 1 week
+
+d_decorated_houses:
+  stage: Run
+  script:
+    - cd ../src
+    - python polyhash.py ../data/input_data/d_decorated_houses.in.txt
+  artifacts:
+    paths:
+      - data/output_data/*.txt
+    expire_in: 1 week
+
+e_excellent_weather:
+  stage: Run
+  script:
+    - cd ../src
+    - python polyhash.py ../data/input_data/e_excellent_weather.in.txt
+  artifacts:
+    paths:
+      - data/output_data/*.txt
+    expire_in: 1 week
+
+f_festive_flyover:
+  stage: Run
+  script:
+    - cd ../src
+    - python polyhash.py ../data/input_data/f_festive_flyover.in.txt
+  artifacts:
+    paths:
+      - data/output_data/*.txt
+    expire_in: 1 week
+  
 a_an_example_scorer:
   stage: Scorer
   needs: [a_an_example]
@@ -37,3 +87,48 @@ a_an_example_scorer:
   script:
     - cd ../src
     - python scorer.py ../data/input_data/a_an_example.in.txt ../data/output_data/a_an_example.out.txt
+
+b_better_hurry_scorer:
+  stage: Scorer
+  needs: [b_better_hurry]
+  dependencies:
+    - b_better_hurry
+  script:
+    - cd ../src
+    - python scorer.py ../data/input_data/b_better_hurry.in.txt ../data/output_data/b_better_hurry.out.txt
+
+c_carousel_scorer:
+  stage: Scorer
+  needs: [c_carousel]
+  dependencies:
+    - c_carousel
+  script:
+    - cd ../src
+    - python scorer.py ../data/input_data/c_carousel.in.txt ../data/output_data/c_carousel.out.txt
+    
+d_decorated_houses_scorer:
+  stage: Scorer
+  needs: [d_decorated_houses]
+  dependencies:
+    - d_decorated_houses
+  script:
+    - cd ../src
+    - python scorer.py ../data/input_data/d_decorated_houses.in.txt ../data/output_data/d_decorated_houses.out.txt
+
+e_excellent_weather_scorer:
+  stage: Scorer
+  needs: [e_excellent_weather]
+  dependencies:
+    - e_excellent_weather
+  script:
+    - cd ../src
+    - python scorer.py ../data/input_data/e_excellent_weather.in.txt ../data/output_data/e_excellent_weather.out.txt
+
+f_festive_flyover_scorer:
+  stage: Scorer
+  needs: [f_festive_flyover]
+  dependencies:
+    - f_festive_flyover
+  script:
+    - cd ../src
+    - python scorer.py ../data/input_data/f_festive_flyover.in.txt ../data/output_data/f_festive_flyover.out.txt
