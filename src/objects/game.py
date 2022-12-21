@@ -28,6 +28,8 @@ class Game :
         self.deliveredGifts : list[Gift] = []
 
         self.outputString : list[str] = []
+        self.outDist: str = f"../data/output_data/{p.filename.split('/')[-1].replace('.in', '.out')}"
+
 
     def accelerate(self, nb : int, dir : str) :
         if dir == ACCELERATE_UP :
@@ -83,9 +85,9 @@ class Game :
         self.outputString.append(f"{DELIVER_GIFT} {g.name}\n")
         self.actionCount += 1
 
-    def finish(self, outputDirectory: str = "../data/output_data/output.txt") :
-        os.makedirs(name=os.path.dirname(outputDirectory), exist_ok=True)
-        with open(outputDirectory, 'w') as f :
+    def finish(self, outputDirectory: str = None) :
+        os.makedirs(name=os.path.dirname(outputDirectory if outputDirectory != None else str(self.outDist)), exist_ok=True)
+        with open(outputDirectory if outputDirectory != None else str(self.outDist), 'w') as f :
             f.write(f"{self.actionCount}\n")
             
             for line in self.outputString:
