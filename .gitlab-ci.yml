@@ -6,6 +6,7 @@ before_script:
 
 stages:
   - Test
+  - Run
 
 Parser:
   stage: Test
@@ -16,3 +17,13 @@ Game:
   stage: Test
   script:
     - python TestGame.py
+
+a_an_example:
+  stage: Run
+  script:
+    - cd ../src
+    - python polyhash.py ../data/input_data/a_an_example.in.txt
+  artifacts:
+    paths:
+      - ../data/output_data/*.txt
+    expire_in: 1 week
