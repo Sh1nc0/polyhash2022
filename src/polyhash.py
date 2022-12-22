@@ -4,85 +4,7 @@ from math import sqrt
 import argparse
 
 from util.constants import *
-
-import time
-
-def getDistXDistY(a:int, b:int, x:int, y:int):
-    return x-a, y-b
-
-def stopMoving(game : Game) :
-    if g.santa.vx != 0 :
-        if g.santa.vx > 0 :
-            g.accelerate(g.santa.vx, ACCELERATE_LEFT)
-        else :
-            g.accelerate(-g.santa.vx, ACCELERATE_RIGHT)
-        g.floatX(1)
-
-    if g.santa.vy != 0 :
-        if g.santa.vy > 0 :
-            g.accelerate(g.santa.vy, ACCELERATE_DOWN)
-        else :
-            g.accelerate(-g.santa.vy, ACCELERATE_UP)
-        g.floatX(1)
-
-def goTo(x : int, y : int, game : Game) :
-
-    inRange = g.santa.getDistance(x, y) <= g.maxDeliveryDistance
-
-    print(f"{g.timeCount}/{g.timeLimit}    starting x | objective {x}")
-    
-    while (g.santa.x != x) and (not inRange) :
-
-        print(f"{g.timeCount}/{g.timeLimit}        {g.santa.vx} {g.santa.x, g.santa.y}")
-        if g.santa.vx == 0 :
-            if g.santa.x < x :
-                g.accelerate(1, ACCELERATE_RIGHT)
-            else :
-                g.accelerate(1, ACCELERATE_LEFT)
-        g.floatX(1)
-
-        inRange = g.santa.getDistance(x, y) <= g.maxDeliveryDistance
-
-        if g.timeCount >= g.timeLimit :
-            g.finish()
-            print(f"score : {g.score}")
-            exit()
-
-    print(f"{g.timeCount}/{g.timeLimit}    done x | actual pos {g.santa.x, g.santa.y}")
-
-    stopMoving(game)
-    if g.timeCount >= g.timeLimit :
-        g.finish()
-        print(f"score : {g.score}")
-        exit()
-
-    print(f"{g.timeCount}/{g.timeLimit}    starting y | objective {y}")
-
-    while (g.santa.y != y) and (not inRange) :
-
-        print(f"{g.timeCount}/{g.timeLimit}        {g.santa.vy} {g.santa.y, g.santa.y}")
-
-        if g.santa.vy == 0 :
-            if g.santa.y < y :
-                g.accelerate(1, ACCELERATE_UP)
-            else :
-                g.accelerate(1, ACCELERATE_DOWN)
-        g.floatX(1)
-
-        inRange = g.santa.getDistance(x, y) <= g.maxDeliveryDistance
-
-        if g.timeCount >= g.timeLimit :
-            g.finish()
-            print(f"score : {g.score}")
-            exit()
-
-    print(f"{g.timeCount}/{g.timeLimit}    done y")
-
-    stopMoving(game)
-    if g.timeCount >= g.timeLimit :
-            g.finish()
-            print(f"score : {g.score}")
-            exit()
+from util.functions import *
 
 if __name__ == "__main__":
 
@@ -91,29 +13,45 @@ if __name__ == "__main__":
     args = args.parse_args()
 
     p = Parser(args.fileInput)
+    #p = Parser("/Users/romain/Desktop/polyhash2022/data/input_data/f_festive_flyover.in.txt")
     p.parse()
 
     g = Game(p)
-    g.toDeliver = sorted(g.toDeliver, key=lambda x : (abs(x.x) + abs(x.y)), reverse=True)
+    
+    t = [(0,0),(20,0),(-20,0),(0,20),(0,-20),(20,20), (-20,20), (20,-20), (-20,-20), (40,0), (-40,0), (0,40), (0,-40), (40,40), (-40,40), (40,-40), (-40,-40), (60,0), (-60,0), (0,60), (0,-60), (60,60), (-60,60), (60,-60), (-60,-60)]
 
-    for j in range(len(g.toDeliver)-1, -1, -1) :
-        i = g.toDeliver[j]
-        print(f"{g.timeCount}/{g.timeLimit} Gift : {i}")
+    for i in range(len(t)):
+        g.toDeliver.sort(key=lambda x: getDist(x.x, x.y,t[i][0], t[i][1]))
+        goTo(0, 0, g)
+        print(f"{g.santa.x} {g.santa.y}")
+
+        for j in range(len(g.toDeliver)):
+            if getDist(g.toDeliver[0].x, g.toDeliver[0].y, t[i][0], t[i][1])<= g.maxDeliveryDistance :
+                g.loadGift(g.toDeliver[0])
+
+        goTo(t[i][0], t[i][1], g)
+        print(f"{g.santa.x} {g.santa.y}")
+        for i in range(len(g.santa.loadedGifts)):
+            g.deliverGift(g.santa.loadedGifts[0])
+
+
+    finish(g)
+
+    # posx,posy = 0,0
+
+    # for i in range(150):
+    #     g.toDeliver.sort(key=lambda x: getDist(x.x, x.y,(posx),(posy)))
+    #     goTo(0, 0, g)
+    #     g.loadCarrots(200)
+
+    #     for i in range(len(g.toDeliver)):
+    #         if getDist(g.toDeliver[0].x, g.toDeliver[0].y, posx, posy)<= g.maxDeliveryDistance :
+    #             g.loadGift(g.toDeliver[0])
+
         
-        g.loadGift(i)
-        if g.santa.carrots < 8 :
-            g.loadCarrots(8 - g.santa.carrots)
+    #     for i in range(len(g.santa.loadedGifts)):
+    #         goTo(g.santa.loadedGifts[0].x, g.santa.loadedGifts[0].y, g)
+    #         g.deliverGift(g.santa.loadedGifts[0])
 
-        goTo(i.x, i.y, g)
-
-        print(f"{g.timeCount}/{g.timeLimit} Voyage terminé : {i.x, i.y} | {g.santa.x, g.santa.y} {g.santa.vx, g.santa.vy}")
-
-        g.deliverGift(i)
-
-        if j != 0 :
-            goTo(0, 0, g)
-
-        print(f"{g.timeCount}/{g.timeLimit} Retour terminé : 0 0 | {g.santa.x, g.santa.y} {g.santa.vx, g.santa.vy}\n\n")
-
-    print(f"score : {g.score}")
-    g.finish()
+    #     posx -= 15
+    #     posy += 5
