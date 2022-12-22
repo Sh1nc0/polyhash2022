@@ -128,7 +128,7 @@ if __name__ == "__main__":
 
         # Depassemeent de temps
         if g.timeCount > g.timeLimit:
-            raise Exception("Erreur ligne "+str(i)+". Le temps de jeu max est dépassé. Ecoulé : "+str(att)+"s. Max : "+str(max_time_sec))
+            raise Exception("Erreur ligne "+str(i)+". Le temps de jeu max est dépassé. Ecoulé : "+str(att)+"s. Max : "+str(g.timeLimit))
 
     # Calcul score:
     total_score = 0
