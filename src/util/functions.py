@@ -118,7 +118,6 @@ def goTo(x : int, y : int, g : Game) :
                 if g.timeCount+1 < g.timeLimit:
                     g.floatX(1)
                 else:
-                    stopMoving(g)
                     finish(g)
                 
                 if g.santa.x >= x:
@@ -132,7 +131,6 @@ def goTo(x : int, y : int, g : Game) :
                     g.floatX(tf)
                 else:
                     g.floatX(g.timeLimit-g.timeCount)
-                    stopMoving(g)
                     finish(g)
 
                 if g.santa.x >= x:
@@ -148,7 +146,6 @@ def goTo(x : int, y : int, g : Game) :
                 if g.timeCount+1 < g.timeLimit:
                     g.floatX(1)
                 else:
-                    stopMoving(g)
                     finish(g)
                 if g.santa.y >= y:
                     stopMoving(g)
@@ -159,7 +156,6 @@ def goTo(x : int, y : int, g : Game) :
                 if g.timeCount+tf < g.timeLimit:
                     g.floatX(tf)
                 else:
-                    stopMoving(g)
                     finish(g)
 
                 if g.santa.x <= x:
@@ -182,7 +178,6 @@ def goTo(x : int, y : int, g : Game) :
                 if g.timeCount+1 < g.timeLimit:
                     g.floatX(1)
                 else:
-                    stopMoving(g)
                     finish(g)
                 stopMoving(g)
             else:
@@ -193,7 +188,6 @@ def goTo(x : int, y : int, g : Game) :
                     g.floatX(tf)
                 else:
                     g.floatX(g.timeLimit-g.timeCount)
-                    stopMoving(g)
                     finish(g)
 
                 if g.santa.y > y:
@@ -208,7 +202,6 @@ def goTo(x : int, y : int, g : Game) :
                 if g.timeCount+1 < g.timeLimit:
                     g.floatX(1)
                 else:
-                    stopMoving(g)
                     finish(g)
                 stopMoving(g)
             else:
@@ -219,7 +212,6 @@ def goTo(x : int, y : int, g : Game) :
                     g.floatX(tf)
                 else:
                     g.floatX(g.timeLimit-g.timeCount)
-                    stopMoving(g)
                     finish(g)
 
                 if g.santa.y < y:
