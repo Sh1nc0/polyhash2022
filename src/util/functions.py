@@ -96,8 +96,9 @@ def goInRange(x : int, y : int, g : Game) :
 def goTo(x : int, y : int, g : Game) :
 
     #Calculate the amount of carrots needed
-    if g.santa.getDistance(0, 0) <= g.maxDeliveryDistance and g.santa.x != x and g.santa.y != x:
-        carrots = (abs(g.santa.x - x)//g.santa.getMaxAcc() + abs(g.santa.y - y)//g.santa.getMaxAcc() + 2)*2
+    if g.santa.getDistance(0, 0) <= g.maxDeliveryDistance:
+        carrots = (abs(g.santa.x - x)//g.santa.getMaxAcc() + abs(g.santa.y - y)//g.santa.getMaxAcc() + 2)*3
+        print(f"Carrots needed : {carrots}")
         if g.santa.carrots < carrots:
             g.loadCarrots(carrots-g.santa.carrots)
 
@@ -107,6 +108,7 @@ def goTo(x : int, y : int, g : Game) :
 
         if x > g.santa.x:
             mv = g.santa.getMaxAcc()
+            print(mv)
             if distX < mv:
                 if g.santa.vx > 0:
                     g.accelerate(abs(mv-distX), ACCELERATE_LEFT)
@@ -157,7 +159,6 @@ def goTo(x : int, y : int, g : Game) :
                 if g.timeCount+tf < g.timeLimit:
                     g.floatX(tf)
                 else:
-                    g.floatX(g.timeLimit-g.timeCount)
                     stopMoving(g)
                     finish(g)
 
