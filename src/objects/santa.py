@@ -37,3 +37,6 @@ class Santa:
             if self.loadedGifts[i].name == name :
                 return i
         return -1
+
+    def __str__(self):
+        return f"x: {self.x} y: {self.y} vx: {self.vx} vy: {self.vy} w: {self.weight} c: {self.carrots}"
