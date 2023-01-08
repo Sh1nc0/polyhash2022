@@ -69,6 +69,10 @@ if __name__ == "__main__":
             else:
                 if instruction == LOAD_CARROTS:
                     nb: int = int(line.split()[1])
+
+                    if nb <= 0:
+                        raise Exception("Erreur ligne "+str(i)+" : Le pere noel ne peut pas charger un nombre négatif de carottes")
+                        
                     g.loadCarrots(nb)
                     print(LOAD_CARROTS,nb, " -> total carrots", g.santa.carrots)
 
@@ -98,6 +102,9 @@ if __name__ == "__main__":
             
             if acceleration_this_turn == True: # A ton deja acceléré ce tour ?
                 raise Exception("Erreur ligne "+str(i)+" : Le pere noel ne peut pas accélérer plus d'une fois par tour")
+            
+            if g.santa.carrots <= 0: # A ton assez de carottes pour accélérer ?
+                raise Exception("Erreur ligne "+str(i)+" : Le pere noel n'a pas assez de carottes pour accélérer")
             
             maxAcceleration = g.santa.getMaxAcc() # Quel accceleration max peut on effectuer ?
             acc = int(line.split()[1])
