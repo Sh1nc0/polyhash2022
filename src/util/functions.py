@@ -14,9 +14,6 @@ def finish(g: Game):
     print(f"score : {g.score}")
     exit()
 
-def getDistXDistY(a:int, b:int, x:int, y:int):
-    return x-a, y-b
-
 def getDist(x0:int, y0:int, x1:int, y1:int):
     return sqrt((x1-x0)**2 + (y1-y0)**2)
 
@@ -41,64 +38,31 @@ def stopMoving(g : Game) :
         else:
             finish(g)
 
-def goInRange(x : int, y : int, g : Game) :
+def getMap(g: Game):
+    x = [gift.x for gift in g.toDeliver]
+    y = [gift.y for gift in g.toDeliver]
 
-    inRange = g.santa.getDistance(x, y) <= g.maxDeliveryDistance
+    return min(x), max(x), min(y), max(y)
 
-    print(f"{g.timeCount}/{g.timeLimit}    starting x | objective {x}")
-    
-    while (g.santa.x != x) and (not inRange) :
+def getGiftsInArea(x, y, g: Game) -> List[Gift]:
+    gifts = []
+    amount=0
+    for gift in g.toDeliver:
+        if getDist(x, y, gift.x, gift.y) <= g.maxDeliveryDistance:
+            gifts.append(gift)
+            amount+=1
 
-        print(f"{g.timeCount}/{g.timeLimit}        {g.santa.vx} {g.santa.x, g.santa.y}")
-        if g.santa.vx == 0 :
-            if g.santa.x < x :
-                g.accelerate(1, ACCELERATE_RIGHT)
-            else :
-                g.accelerate(1, ACCELERATE_LEFT)
-        g.floatX(1)
+    return gifts
 
-        inRange = g.santa.getDistance(x, y) <= g.maxDeliveryDistance
-
-        if g.timeCount >= g.timeLimit :
-            finish(g)
-
-    print(f"{g.timeCount}/{g.timeLimit}    done x | actual pos {g.santa.x, g.santa.y}")
-
-    stopMoving(g)
-    if g.timeCount >= g.timeLimit :
-        finish(g)
-
-
-    print(f"{g.timeCount}/{g.timeLimit}    starting y | objective {y}")
-
-    while (g.santa.y != y) and (not inRange) :
-
-        print(f"{g.timeCount}/{g.timeLimit}        {g.santa.vy} {g.santa.y, g.santa.y}")
-
-        if g.santa.vy == 0 :
-            if g.santa.y < y :
-                g.accelerate(1, ACCELERATE_UP)
-            else :
-                g.accelerate(1, ACCELERATE_DOWN)
-        g.floatX(1)
-
-        inRange = g.santa.getDistance(x, y) <= g.maxDeliveryDistance
-
-        if g.timeCount >= g.timeLimit :
-            finish(g)
-
-    print(f"{g.timeCount}/{g.timeLimit}    done y")
-
-    stopMoving(g)
-    if g.timeCount >= g.timeLimit :
-        finish(g)
-
-def goTo(x: int, y: int, g: Game):
+def goTo(x: int, y: int, g: Game, goFast: bool = True):
 
     distX = abs(g.santa.x - x)
     distY = abs(g.santa.y - y)
 
-    if distX > g.santa.getMaxAcc(): 
+    if g.santa.getMaxAcc() == None or g.santa.carrots <= 0:
+        return
+
+    if goFast : 
         x1 = int(abs(g.santa.x - x)/2)
         if g.santa.x < x :
             while g.santa.x < x1:
@@ -144,6 +108,8 @@ def goTo(x: int, y: int, g: Game):
                 g.floatX(1)
 
             while g.santa.vy > 0:
+                if g.timeCount + 1 >= g.timeLimit:
+                    finish(g)
                 g.accelerate(g.santa.getMaxAcc(), ACCELERATE_DOWN)
                 g.floatX(1)
 
@@ -246,7 +212,8 @@ def goTo(x: int, y: int, g: Game):
                 if g.timeCount+tf < g.timeLimit:
                     g.floatX(tf)
                 else:
-                    g.floatX(g.timeLimit-g.timeCount)
+                    if g.timeLimit-g.timeCount <= g.timeLimit:
+                        g.floatX(g.timeLimit-g.timeCount)
                     finish(g)
 
                 if g.santa.y > y:
@@ -270,7 +237,8 @@ def goTo(x: int, y: int, g: Game):
                 if g.timeCount+tf < g.timeLimit:
                     g.floatX(tf)
                 else:
-                    g.floatX(g.timeLimit-g.timeCount)
+                    if g.timeLimit-g.timeCount <= g.timeLimit:
+                        g.floatX(g.timeLimit-g.timeCount)
                     finish(g)
 
                 if g.santa.y < y:
@@ -278,3 +246,107 @@ def goTo(x: int, y: int, g: Game):
 
     print(f"{g.timeCount}/{g.timeLimit} done y {g.santa.vx} {g.santa.x, g.santa.y}")
     stopMoving(g)
+
+def clusters_analysis(g: Game) -> List:
+    minX, maxX, minY, maxY = getMap(g)
+    ga = []
+    score=0
+    for gift in g.toDeliver:
+        if gift.x >= minX and gift.x <= maxX and gift.y >= minY and gift.y <= maxY:
+            ga.append(gift)
+            score+=gift.score
+    print(len(ga), score)
+
+    #Algorithm DBSCAN 
+    visited_points = []
+    clusters = []
+    for point in ga:
+        if point in visited_points:
+            continue
+        visited_points.append(point)
+        cluster = [point]
+        for point2 in ga:
+            if point2 in visited_points:
+                continue
+            if getDist(point.x, point.y, point2.x, point2.y) <= 300:
+                cluster.append(point2)
+                visited_points.append(point2)
+        clusters.append(cluster)
+    
+    #sort the clusters by making the average x and y of the cluster and sort by the distance to 0,0
+    return sorted(clusters, key=lambda x: getDist(0, 0, sum([i.x for i in x])/len(x), sum([i.y for i in x])/len(x)))
+
+
+def cluster_delivery(clusters, g: Game):
+    for i in clusters:
+            print(f"Cluster {clusters.index(i)} : len : {len(i)}, weight : {sum([j.weight for j in i])}, score : {sum([j.score for j in i])}")
+
+    for i in range(len(clusters)):
+        index=0
+        while index < len(clusters[i]):
+            if g.santa.getDistance(0, 0) <= g.maxDeliveryDistance:
+                if g.santa.carrots > 0:
+                    goTo(0, 0, g, False)
+                    g.loadCarrots(101-g.santa.carrots)
+                else:
+                    goTo(0, 0, g)
+                    g.loadCarrots(101)
+
+            for gift in clusters[i]:
+                if gift in g.toDeliver and gift not in g.deliveredGifts and g.santa.weight+gift.weight < g.santa.getMaxWeight()and g.santa.getDistance(0, 0) <= g.maxDeliveryDistance:
+                    print(gift)
+                    g.loadGift(gift)
+                    index+=1
+            
+            g.santa.loadedGifts = sorted(g.santa.loadedGifts, key=lambda x: getDist(0, 0, x.x, x.y))
+
+            for gift in g.santa.loadedGifts:
+                goTo(gift.x, gift.y, g, False)
+                if g.santa.getDistance(gift.x, gift.y) <= g.maxDeliveryDistance:
+                    g.deliverGift(gift)
+                    print(f"Deliver {gift}")
+            goTo(0, 0, g,False)
+
+def generate_coordinates(g):
+    minX, maxX, minY, maxY = getMap(g)
+    coordinates = []
+    for i in range(minX, maxX, g.maxDeliveryDistance if g.maxDeliveryDistance else 1):
+        for j in range(minY, maxY, g.maxDeliveryDistance if g.maxDeliveryDistance else 1):
+            coordinates.append((i, j))
+
+    return coordinates
+
+def area_analysis(g):
+    coordinates = generate_coordinates(g)
+    temp=[]
+    for i in coordinates:
+        score=0
+        for gift in g.toDeliver:
+            if getDist(gift.x, gift.y, i[0], i[1]) <= g.maxDeliveryDistance:
+                score+=gift.score
+        if score>0:
+            temp.append((i[0],i[1],score))
+    temp = list(set(temp))
+    temp.sort(key=lambda x: x[2]/(getDist(x[0], x[1], 0,0)+1), reverse=True)
+    
+    return temp
+
+def area_delivery(coordinates, g):
+    for i in range(len(coordinates)):
+        g.toDeliver.sort(key=lambda x: getDist(x.x, x.y,coordinates[i][0], coordinates[i][1]))
+        goTo(0, 0, g)
+        print(f"{g.santa.x} {g.santa.y}")
+        g.loadCarrots(100)
+        if g.santa.getDistance(0, 0) <= g.maxDeliveryDistance:
+            for j in range(len(g.toDeliver)):
+                if getDist(g.toDeliver[0].x, g.toDeliver[0].y, coordinates[i][0], coordinates[i][1])<= g.maxDeliveryDistance :
+                    g.loadGift(g.toDeliver[0])
+
+        goTo(coordinates[i][0], coordinates[i][1], g)
+        print(f"{g.santa.x} {g.santa.y} ")
+        for i in range(len(g.santa.loadedGifts)):
+            print(f"{g.santa.loadedGifts[0]}")
+            if g.santa.getDistance(g.santa.loadedGifts[0].x, g.santa.loadedGifts[0].y) <= g.maxDeliveryDistance:
+                g.deliverGift(g.santa.loadedGifts[0])
+            else:
+                g.santa.loadedGifts.remove(g.santa.loadedGifts[0])
