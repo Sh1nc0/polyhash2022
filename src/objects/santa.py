@@ -38,5 +38,8 @@ class Santa:
                 return i
         return -1
 
+    def getMaxWeight(self) -> int :
+        return self.maxSpeed[-1][0]
+
     def __str__(self):
         return f"x: {self.x} y: {self.y} vx: {self.vx} vy: {self.vy} w: {self.weight} c: {self.carrots}"
