@@ -6,11 +6,12 @@ from objects.gift import Gift
 from util.constants import *
 from parser import Parser
 import os
+import time
 
 class Game :
 
     def __init__(self, p : Parser) :
-
+        self.start_time = time.time()
         if p is None :
             raise Exception
 
@@ -86,6 +87,10 @@ class Game :
         self.actionCount += 1
 
     def finish(self, outputDirectory: str = None) :
+        end_time = time.time()
+        elapsed_time = end_time - self.start_time
+        print('Execution time:', elapsed_time, 'seconds')
+
         os.makedirs(name=os.path.dirname(outputDirectory if outputDirectory != None else str(self.outDist)), exist_ok=True)
         with open(outputDirectory if outputDirectory != None else str(self.outDist), 'w') as f :
             f.write(f"{self.actionCount}\n")
