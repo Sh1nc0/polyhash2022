@@ -69,14 +69,14 @@ def goTo(x: int, y: int, g: Game, goFast: bool = True):
                 if g.santa.x + g.santa.vx + g.santa.getMaxAcc() > x1 :
                     break
 
-                if g.timeCount + 1 >= g.timeLimit:
+                if g.timeCount + 1 >= g.timeLimit or g.santa.carrots <= 0:
                     finish(g)
 
                 g.accelerate(g.santa.getMaxAcc(), ACCELERATE_RIGHT)
                 g.floatX(1)
 
             while g.santa.vx > 0:
-                if g.timeCount + 1 >= g.timeLimit:
+                if g.timeCount + 1 >= g.timeLimit or g.santa.carrots <= 0:
                     finish(g)
 
                 g.accelerate(g.santa.getMaxAcc(), ACCELERATE_LEFT)
@@ -86,12 +86,12 @@ def goTo(x: int, y: int, g: Game, goFast: bool = True):
             while g.santa.x > x1:
                 if g.santa.x + g.santa.vx - g.santa.getMaxAcc() < x1 :
                     break
-                if g.timeCount + 1 >= g.timeLimit:
+                if g.timeCount + 1 >= g.timeLimit or g.santa.carrots <= 0:
                     finish(g)
                 g.accelerate(g.santa.getMaxAcc(), ACCELERATE_LEFT)
                 g.floatX(1)
             while g.santa.vx < 0:
-                if g.timeCount + 1 >= g.timeLimit:
+                if g.timeCount + 1 >= g.timeLimit or g.santa.carrots <= 0:
                     finish(g)
                 g.accelerate(g.santa.getMaxAcc(), ACCELERATE_RIGHT)
                 g.floatX(1)
@@ -102,13 +102,13 @@ def goTo(x: int, y: int, g: Game, goFast: bool = True):
             while g.santa.y < y1:
                 if g.santa.y + g.santa.vy + g.santa.getMaxAcc() > y1 :
                     break
-                if g.timeCount + 1 >= g.timeLimit:
+                if g.timeCount + 1 >= g.timeLimit or g.santa.carrots <= 0:
                     finish(g)
                 g.accelerate(g.santa.getMaxAcc(), ACCELERATE_UP)
                 g.floatX(1)
 
             while g.santa.vy > 0:
-                if g.timeCount + 1 >= g.timeLimit:
+                if g.timeCount + 1 >= g.timeLimit or g.santa.carrots <= 0:
                     finish(g)
                 g.accelerate(g.santa.getMaxAcc(), ACCELERATE_DOWN)
                 g.floatX(1)
@@ -117,12 +117,12 @@ def goTo(x: int, y: int, g: Game, goFast: bool = True):
             while g.santa.y > y1:
                 if g.santa.y + g.santa.vy - g.santa.getMaxAcc() < y1 :
                     break
-                if g.timeCount + 1 >= g.timeLimit:
+                if g.timeCount + 1 >= g.timeLimit or g.santa.carrots <= 0:
                     finish(g)
                 g.accelerate(g.santa.getMaxAcc(), ACCELERATE_DOWN)
                 g.floatX(1)
             while g.santa.vy < 0:
-                if g.timeCount + 1 >= g.timeLimit:
+                if g.timeCount + 1 >= g.timeLimit or g.santa.carrots <= 0:
                     finish(g)
                 g.accelerate(g.santa.getMaxAcc(), ACCELERATE_UP)
                 g.floatX(1)
@@ -140,7 +140,7 @@ def goTo(x: int, y: int, g: Game, goFast: bool = True):
                 elif g.santa.vx == 0:
                     g.accelerate(distX if distX < max_acc else max_acc, ACCELERATE_RIGHT)
 
-                if g.timeCount+1 < g.timeLimit:
+                if g.timeCount+1 < g.timeLimit or g.santa.carrots <= 0:
                     g.floatX(1)
                 else:
                     finish(g)
@@ -152,7 +152,7 @@ def goTo(x: int, y: int, g: Game, goFast: bool = True):
                 g.accelerate(max_acc, ACCELERATE_RIGHT)
                 tf = distX//max_acc
 
-                if g.timeCount+tf < g.timeLimit:
+                if g.timeCount+tf < g.timeLimit or g.santa.carrots <= 0:
                     g.floatX(tf)
                 else:
                     g.floatX(g.timeLimit-g.timeCount)
@@ -168,7 +168,7 @@ def goTo(x: int, y: int, g: Game, goFast: bool = True):
                 elif g.santa.vx == 0:
                     g.accelerate(distX if distX < max_acc else max_acc, ACCELERATE_LEFT)
 
-                if g.timeCount+1 < g.timeLimit:
+                if g.timeCount+1 < g.timeLimit or g.santa.carrots <= 0:
                     g.floatX(1)
                 else:
                     finish(g)
@@ -178,7 +178,7 @@ def goTo(x: int, y: int, g: Game, goFast: bool = True):
                 g.accelerate(max_acc, ACCELERATE_LEFT)
                 tf = distX//max_acc
 
-                if g.timeCount+tf < g.timeLimit:
+                if g.timeCount+tf < g.timeLimit or g.santa.carrots <= 0:
                     g.floatX(tf)
                 else:
                     finish(g)
@@ -200,7 +200,7 @@ def goTo(x: int, y: int, g: Game, goFast: bool = True):
                     g.accelerate(abs(max_acc-distY), ACCELERATE_DOWN)
                 elif g.santa.vy == 0:
                     g.accelerate(distY if distY < max_acc else max_acc, ACCELERATE_UP)
-                if g.timeCount+1 < g.timeLimit:
+                if g.timeCount+1 < g.timeLimit or g.santa.carrots <= 0:
                     g.floatX(1)
                 else:
                     finish(g)
@@ -209,10 +209,10 @@ def goTo(x: int, y: int, g: Game, goFast: bool = True):
                 g.accelerate(max_acc, ACCELERATE_UP)
                 tf = distY//max_acc
 
-                if g.timeCount+tf < g.timeLimit:
+                if g.timeCount+tf < g.timeLimit or g.santa.carrots <= 0:
                     g.floatX(tf)
                 else:
-                    if g.timeLimit-g.timeCount <= g.timeLimit:
+                    if g.timeLimit-g.timeCount <= g.timeLimit or g.santa.carrots <= 0:
                         g.floatX(g.timeLimit-g.timeCount)
                     finish(g)
 
@@ -225,7 +225,7 @@ def goTo(x: int, y: int, g: Game, goFast: bool = True):
                     g.accelerate(abs(max_acc-distY), ACCELERATE_UP)
                 elif g.santa.vy == 0:
                     g.accelerate(distY if distY < max_acc else max_acc, ACCELERATE_DOWN)
-                if g.timeCount+1 < g.timeLimit:
+                if g.timeCount+1 < g.timeLimit or g.santa.carrots <= 0:
                     g.floatX(1)
                 else:
                     finish(g)
@@ -234,10 +234,10 @@ def goTo(x: int, y: int, g: Game, goFast: bool = True):
                 g.accelerate(max_acc, ACCELERATE_DOWN)
                 tf = distY//max_acc
 
-                if g.timeCount+tf < g.timeLimit:
+                if g.timeCount+tf < g.timeLimit or g.santa.carrots <= 0:
                     g.floatX(tf)
                 else:
-                    if g.timeLimit-g.timeCount <= g.timeLimit:
+                    if g.timeLimit-g.timeCount <= g.timeLimit or g.santa.carrots <= 0:
                         g.floatX(g.timeLimit-g.timeCount)
                     finish(g)
 
