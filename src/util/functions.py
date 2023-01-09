@@ -44,7 +44,7 @@ def getMap(g: Game):
 
     return min(x), max(x), min(y), max(y)
 
-def getGiftsInArea(x, y, g: Game) -> List[Gift]:
+def getGiftsInArea(x, y, g: Game):
     gifts = []
     amount=0
     for gift in g.toDeliver:
@@ -247,7 +247,7 @@ def goTo(x: int, y: int, g: Game, goFast: bool = True):
     print(f"{g.timeCount}/{g.timeLimit} done y {g.santa.vx} {g.santa.x, g.santa.y}")
     stopMoving(g)
 
-def clusters_analysis(g: Game) -> List:
+def clusters_analysis(g: Game):
     minX, maxX, minY, maxY = getMap(g)
     ga = []
     score=0
