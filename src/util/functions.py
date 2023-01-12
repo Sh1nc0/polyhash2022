@@ -10,7 +10,7 @@ def finish(g: Game):
             if g.santa.getDistance(gift.x, gift.y) <= g.maxDeliveryDistance:
                 g.deliverGift(gift)
     g.finish()
-    print(f"score: {g.score}")
+    print(f"score : {g.score}")
     exit()
 
 
@@ -63,7 +63,7 @@ def goTo(x: int, y: int, g: Game, goFast: bool = True):
     distX = abs(g.santa.x - x)
     distY = abs(g.santa.y - y)
 
-    if g.santa.getMaxAcc() is not None or g.santa.carrots <= 0:
+    if g.santa.getMaxAcc() == None or g.santa.carrots <= 0:
         return
 
     if goFast:
@@ -283,7 +283,7 @@ def clusters_analysis(g: Game):
 
 def cluster_delivery(clusters, g: Game):
     for i in clusters:
-        print(f"Cluster {clusters.index(i)}: len: {len(i)}, weight: {sum([j.weight for j in i])}, score: {sum([j.score for j in i])}")
+        print(f"Cluster {clusters.index(i)} : len : {len(i)}, weight : {sum([j.weight for j in i])}, score : {sum([j.score for j in i])}")
 
     for i in range(len(clusters)):
         index = 0
