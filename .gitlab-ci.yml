@@ -2,13 +2,20 @@ image: python:latest
 
 before_script:
   - python --version
+  - python
   - cd tests
 
 stages:
+  - Lint
   - Test
   - Run
   - Scorer
 
+Lint:
+  stage: Lint
+  image: registry.gitlab.com/mafda/python-linting:latest
+  script:
+    - flake8
 Parser:
   stage: Test
   script:
