@@ -1,0 +1,11 @@
+[flake8]
+# E501: line too long
+# W292: no newline at end of file
+# E262: inline comment should start with '# '
+# N802: function name should be lowercase
+# N803: argument name should be lowercase
+# E402: module level import not at top of file
+# N806: variable in function should be lowercase
+# E711: comparison to None should be 'if cond is None:'
+ignore = E501,W292,E262,N802,N803,N806,E402,E711
+exclude = .git,__pycache__,data,docs,hooks,.gitconfig,.gitignore,.gitlab-ci.yml, CHANGELOG, README.MD, requirements.txt
