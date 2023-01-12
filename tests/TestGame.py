@@ -1,11 +1,12 @@
 import sys
 sys.path.insert(1, '../src')
 from parser import Parser
-from objects.gift import Gift
+
 from objects.game import Game
-from util.constants import *
+from util.constants import ACCELERATE_UP, ACCELERATE_RIGHT
 
 data_path = "../data/input_data"
+
 
 def testFileA():
     p = Parser(f"{data_path}/a_an_example.in.txt")
@@ -17,7 +18,8 @@ def testFileA():
     assert g.maxDeliveryDistance == 3
     assert len(g.santa.maxSpeed) == 4
     assert len(g.toDeliver) == 4
-    assert g.santa.maxSpeed == [(15,8),(30,6),(45,4),(60,2)]
+    assert g.santa.maxSpeed == [(15, 8), (30, 6), (45, 4), (60, 2)]
+
 
 def testFileB():
     p = Parser(f"{data_path}/b_better_hurry.in.txt")
@@ -29,7 +31,8 @@ def testFileB():
     assert g.maxDeliveryDistance == 100
     assert len(g.santa.maxSpeed) == 5
     assert len(g.toDeliver) == 1000
-    assert g.santa.maxSpeed == [(2000,20),(3000,15),(5000,10),(6000,9),(7000,8)]
+    assert g.santa.maxSpeed == [(2000, 20), (3000, 15), (5000, 10), (6000, 9), (7000, 8)]
+
 
 def testFunctions():
     p = Parser(f"{data_path}/a_an_example.in.txt")
@@ -58,7 +61,7 @@ def testFunctions():
     assert g.santa.x == 5 and g.santa.y == 1
 
     g.deliverGift(g.santa.loadedGifts[0])
-    assert len(g.santa.loadedGifts) == 0  
+    assert len(g.santa.loadedGifts) == 0
 
     assert len(g.outputString) == 6
 

@@ -1,7 +1,6 @@
 import sys
 sys.path.insert(1, '../src')
 from parser import Parser
-from objects.gift import Gift
 
 data_path = "../data/input_data"
 
@@ -14,7 +13,7 @@ def testFileA():
     assert p.deliveryDistance == 3
     assert p.nbAcc == 4
     assert p.nbGifts == 4
-    assert p.santa.maxSpeed == [(15,8),(30,6),(45,4),(60,2)]
+    assert p.santa.maxSpeed == [(15, 8), (30, 6), (45, 4), (60, 2)]
     assert p.nbGifts == len(p.gifts)
 
 
@@ -26,7 +25,7 @@ def testFileB():
     assert p.deliveryDistance == 100
     assert p.nbAcc == 5
     assert p.nbGifts == 1000
-    assert p.santa.maxSpeed == [(2000,20),(3000,15),(5000,10),(6000,9),(7000,8)]
+    assert p.santa.maxSpeed == [(2000, 20), (3000, 15), (5000, 10), (6000, 9), (7000, 8)]
     assert p.nbGifts == len(p.gifts)
 
 
@@ -38,7 +37,7 @@ def testFileC():
     assert p.deliveryDistance == 10
     assert p.nbAcc == 3
     assert p.nbGifts == 10000
-    assert p.santa.maxSpeed == [(10000,4),(20000,2),(40000,1)]
+    assert p.santa.maxSpeed == [(10000, 4), (20000, 2), (40000, 1)]
     assert p.nbGifts == len(p.gifts)
 
 
@@ -50,7 +49,7 @@ def testFileD():
     assert p.deliveryDistance == 0
     assert p.nbAcc == 1
     assert p.nbGifts == 5000
-    assert p.santa.maxSpeed == [(1000,100)]
+    assert p.santa.maxSpeed == [(1000, 100)]
     assert p.nbGifts == len(p.gifts)
 
 
@@ -74,7 +73,7 @@ def testFileF():
     assert p.deliveryDistance == 20
     assert p.nbAcc == 3
     assert p.nbGifts == 10000
-    assert p.santa.maxSpeed == [(10000,4),(20000,2),(40000,1)]
+    assert p.santa.maxSpeed == [(10000, 4), (20000, 2), (40000, 1)]
     assert p.nbGifts == len(p.gifts)
 
 
@@ -85,6 +84,7 @@ def test():
     testFileD()
     testFileE()
     testFileF()
+
 
 if __name__ == "__main__":
     test()

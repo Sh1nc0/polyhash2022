@@ -4,6 +4,7 @@
 from objects.gift import Gift
 from objects.santa import Santa
 
+
 class Parser:
 
     def __init__(self, filename: str):
@@ -38,7 +39,7 @@ class Parser:
                 self.nbGifts = int(properties[3])
 
             if len(properties) == 2:
-                """ 
+                """
                     Acceleration steps
                     properties[0]: weight
                     properties[1]: max speed
