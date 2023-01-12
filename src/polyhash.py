@@ -26,5 +26,4 @@ if __name__ == "__main__":
         print("Livraison des cadeaux")
         area_delivery(coordinates, g)
     finish(g)
-    g.finish()
     print(f"score : {g.score}")

@@ -67,7 +67,7 @@ def goTo(x: int, y: int, g: Game, goFast: bool = True):
         return
 
     if goFast:
-        x1 = int(abs(g.santa.x - x) / 2)
+        x1 = int(distX / 2)
         if g.santa.x < x:
             while g.santa.x < x1:
                 if g.santa.x + g.santa.vx + g.santa.getMaxAcc() > x1:
@@ -101,7 +101,7 @@ def goTo(x: int, y: int, g: Game, goFast: bool = True):
                 g.floatX(1)
 
     if distY > g.santa.getMaxAcc():
-        y1 = int(abs(g.santa.y - y) / 2)
+        y1 = int(abs(distY) / 2)
         if g.santa.y < y:
             while g.santa.y < y1:
                 if g.santa.y + g.santa.vy + g.santa.getMaxAcc() > y1:
@@ -253,23 +253,16 @@ def goTo(x: int, y: int, g: Game, goFast: bool = True):
 
 def clusters_analysis(g: Game):
     minX, maxX, minY, maxY = getMap(g)
-    ga = []
-    score = 0
-    for gift in g.toDeliver:
-        if gift.x >= minX and gift.x <= maxX and gift.y >= minY and gift.y <= maxY:
-            ga.append(gift)
-            score += gift.score
-    print(len(ga), score)
 
     # Algorithm DBSCAN
     visited_points = []
     clusters = []
-    for point in ga:
+    for point in g.toDeliver:
         if point in visited_points:
             continue
         visited_points.append(point)
         cluster = [point]
-        for point2 in ga:
+        for point2 in g.toDeliver:
             if point2 in visited_points:
                 continue
             if getDist(point.x, point.y, point2.x, point2.y) <= 300:
