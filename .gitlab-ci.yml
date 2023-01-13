@@ -6,6 +6,7 @@ before_script:
 
 stages:
   - Lint
+  - Documentation
   - Test
   - Run
   - Scorer
@@ -15,6 +16,18 @@ Lint:
   image: registry.gitlab.com/mafda/python-linting:latest
   script:
     - flake8
+    
+Documentation:
+  stage: Documentation
+  image: alpine
+  script:
+    - apk update && apk add doxygen
+    - doxygen docs/Doxyfile
+    - mv docs/output/html/ public/
+  artifacts:
+    paths:
+    - public
+
 Parser:
   stage: Test
   script:
