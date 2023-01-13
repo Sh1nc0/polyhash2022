@@ -1,4 +1,4 @@
-image: python:latest
+image: alpine
 
 stages:
   - Lint
@@ -6,6 +6,9 @@ stages:
   - Run
   - Scorer
   - Deploy
+
+before_script:
+    - apk update && apk add doxygen && apk add python3
 
 Lint:
   stage: Lint
@@ -19,19 +22,19 @@ Parser:
   stage: Test
   script:
     - cd tests
-    - python TestParser.py
+    - python3 TestParser.py
 
 Game:
   stage: Test
   script:
     - cd tests
-    - python TestGame.py
+    - python3 TestGame.py
 
 a_an_example:
   stage: Run
   script:
     - cd src
-    - python polyhash.py ../data/input_data/a_an_example.in.txt
+    - python3 polyhash.py ../data/input_data/a_an_example.in.txt
   artifacts:
     paths:
       - data/output_data/*.txt
@@ -41,7 +44,7 @@ b_better_hurry:
   stage: Run
   script:
     - cd src
-    - python polyhash.py ../data/input_data/b_better_hurry.in.txt
+    - python3 polyhash.py ../data/input_data/b_better_hurry.in.txt
   artifacts:
     paths:
       - data/output_data/*.txt
@@ -51,7 +54,7 @@ c_carousel:
   stage: Run
   script:
     - cd src
-    - python polyhash.py ../data/input_data/c_carousel.in.txt
+    - python3 polyhash.py ../data/input_data/c_carousel.in.txt
   artifacts:
     paths:
       - data/output_data/*.txt
@@ -61,7 +64,7 @@ d_decorated_houses:
   stage: Run
   script:
     - cd src
-    - python polyhash.py ../data/input_data/d_decorated_houses.in.txt
+    - python3 polyhash.py ../data/input_data/d_decorated_houses.in.txt
   artifacts:
     paths:
       - data/output_data/*.txt
@@ -71,7 +74,7 @@ e_excellent_weather:
   stage: Run
   script:
     - cd src
-    - python polyhash.py ../data/input_data/e_excellent_weather.in.txt
+    - python3 polyhash.py ../data/input_data/e_excellent_weather.in.txt
   artifacts:
     paths:
       - data/output_data/*.txt
@@ -81,7 +84,7 @@ f_festive_flyover:
   stage: Run
   script:
     - cd src
-    - python polyhash.py ../data/input_data/f_festive_flyover.in.txt
+    - python3 polyhash.py ../data/input_data/f_festive_flyover.in.txt
   artifacts:
     paths:
       - data/output_data/*.txt
@@ -94,7 +97,7 @@ a_an_example_scorer:
     - a_an_example
   script:
     - cd src
-    - python scorer.py ../data/input_data/a_an_example.in.txt ../data/output_data/a_an_example.out.txt
+    - python3 scorer.py ../data/input_data/a_an_example.in.txt ../data/output_data/a_an_example.out.txt
 
 b_better_hurry_scorer:
   stage: Scorer
@@ -103,7 +106,7 @@ b_better_hurry_scorer:
     - b_better_hurry
   script:
     - cd src
-    - python scorer.py ../data/input_data/b_better_hurry.in.txt ../data/output_data/b_better_hurry.out.txt
+    - python3 scorer.py ../data/input_data/b_better_hurry.in.txt ../data/output_data/b_better_hurry.out.txt
 
 c_carousel_scorer:
   stage: Scorer
@@ -112,7 +115,7 @@ c_carousel_scorer:
     - c_carousel
   script:
     - cd src
-    - python scorer.py ../data/input_data/c_carousel.in.txt ../data/output_data/c_carousel.out.txt
+    - python3 scorer.py ../data/input_data/c_carousel.in.txt ../data/output_data/c_carousel.out.txt
     
 d_decorated_houses_scorer:
   stage: Scorer
@@ -121,7 +124,7 @@ d_decorated_houses_scorer:
     - d_decorated_houses
   script:
     - cd src
-    - python scorer.py ../data/input_data/d_decorated_houses.in.txt ../data/output_data/d_decorated_houses.out.txt
+    - python3 scorer.py ../data/input_data/d_decorated_houses.in.txt ../data/output_data/d_decorated_houses.out.txt
 
 e_excellent_weather_scorer:
   stage: Scorer
@@ -130,7 +133,7 @@ e_excellent_weather_scorer:
     - e_excellent_weather
   script:
     - cd src
-    - python scorer.py ../data/input_data/e_excellent_weather.in.txt ../data/output_data/e_excellent_weather.out.txt
+    - python3 scorer.py ../data/input_data/e_excellent_weather.in.txt ../data/output_data/e_excellent_weather.out.txt
 
 f_festive_flyover_scorer:
   stage: Scorer
@@ -139,15 +142,14 @@ f_festive_flyover_scorer:
     - f_festive_flyover
   script:
     - cd src
-    - python scorer.py ../data/input_data/f_festive_flyover.in.txt ../data/output_data/f_festive_flyover.out.txt
+    - python3 scorer.py ../data/input_data/f_festive_flyover.in.txt ../data/output_data/f_festive_flyover.out.txt
 
-Documentation:
+pages:
   stage: Deploy
-  image: alpine
   script:
-    - apk update && apk add doxygen
     - doxygen docs/Doxyfile
     - mv docs/output/html/ public/
   artifacts:
     paths:
     - public
+
