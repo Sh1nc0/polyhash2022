@@ -1,22 +1,12 @@
 image: python:latest
 
-before_script:
-  - python --version
-  - python
-
 stages:
   - Lint
   - Documentation
   - Test
   - Run
   - Scorer
-
-Lint:
-  stage: Lint
-  image: registry.gitlab.com/mafda/python-linting:latest
-  script:
-    - flake8
-    
+  
 Documentation:
   stage: Documentation
   image: alpine
@@ -27,6 +17,16 @@ Documentation:
   artifacts:
     paths:
     - public
+
+before_script:
+  - python --version
+  - python
+
+Lint:
+  stage: Lint
+  image: registry.gitlab.com/mafda/python-linting:latest
+  script:
+    - flake8
 
 Parser:
   stage: Test
