@@ -2,30 +2,17 @@ image: python:latest
 
 stages:
   - Lint
-  - Documentation
   - Test
   - Run
   - Scorer
-  
-Documentation:
-  stage: Documentation
-  image: alpine
-  script:
-    - apk update && apk add doxygen
-    - doxygen docs/Doxyfile
-    - mv docs/output/html/ public/
-  artifacts:
-    paths:
-    - public
-
-before_script:
-  - python --version
-  - python
+  - Deploy
 
 Lint:
   stage: Lint
   image: registry.gitlab.com/mafda/python-linting:latest
   script:
+    - python --version
+    - python
     - flake8
 
 Parser:
@@ -153,3 +140,14 @@ f_festive_flyover_scorer:
   script:
     - cd src
     - python scorer.py ../data/input_data/f_festive_flyover.in.txt ../data/output_data/f_festive_flyover.out.txt
+
+Documentation:
+  stage: Deploy
+  image: alpine
+  script:
+    - apk update && apk add doxygen
+    - doxygen docs/Doxyfile
+    - mv docs/output/html/ public/
+  artifacts:
+    paths:
+    - public
