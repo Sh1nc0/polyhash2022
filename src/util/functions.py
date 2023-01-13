@@ -1,9 +1,23 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 from math import sqrt
 from util.constants import ACCELERATE_UP, ACCELERATE_DOWN, ACCELERATE_RIGHT, ACCELERATE_LEFT
 from objects.game import Game
+from objects.gift import Gift
 
 
 def finish(g: Game):
+    """
+    Finish the game
+        This function is called to finish the game
+
+    Parameters
+    ----------
+    g : Game
+        Game object
+    """
+
     if len(g.santa.loadedGifts) > 0:
         g.santa.loadedGifts.sort(key=lambda x: g.santa.getDistance(x.x, x.y))
         for gift in g.santa.loadedGifts:
@@ -14,11 +28,45 @@ def finish(g: Game):
     exit()
 
 
-def getDist(x0: int, y0: int, x1: int, y1: int):
+def getDist(x0: int, y0: int, x1: int, y1: int) -> float:
+    """
+    Get Distance
+        Compute the distance between two points
+
+    Parameters
+    ----------
+    x0 : int
+        X coordinate of the first point
+
+    y0 : int
+        Y coordinate of the first point
+
+    x1 : int
+        X coordinate of the second point
+
+    y1 : int
+        Y coordinate of the second point
+
+    Returns
+    -------
+    float
+        Distance between the two points
+    """
+
     return sqrt((x1 - x0)**2 + (y1 - y0)**2)
 
 
 def stopMoving(g: Game):
+    """
+    Stop moving
+        This function is called to stop the movement of Santa
+
+    Parameters
+    ----------
+    g : Game
+        Game object
+    """
+
     if g.santa.vx != 0:
         if g.santa.vx > 0:
             g.accelerate(g.santa.vx, ACCELERATE_LEFT)
@@ -40,14 +88,50 @@ def stopMoving(g: Game):
             finish(g)
 
 
-def getMap(g: Game):
+def getMap(g: Game) -> tuple[int, int, int, int]:
+    """
+    Get the map
+        This function is called to get the size of the map
+
+    Parameters
+    ----------
+    g : Game
+        Game object
+
+    Returns
+    -------
+    tuple[int, int, int, int]
+        Tuple containing the minimum and maximum X and Y coordinates of the map
+    """
+
     x = [gift.x for gift in g.toDeliver]
     y = [gift.y for gift in g.toDeliver]
 
     return min(x), max(x), min(y), max(y)
 
 
-def getGiftsInArea(x, y, g: Game):
+def getGiftsInArea(x, y, g: Game) -> list[Gift]:
+    """
+    Get gifts in area
+        This function is called to get the gifts in a given area (x, y) his maximum delivery distance
+
+    Parameters
+    ----------
+    x : int
+        X coordinate of the area
+
+    y : int
+        Y coordinate of the area
+
+    g : Game
+        Game object
+
+    Returns
+    -------
+    list[Gift]
+        List of gifts in the area
+    """
+
     gifts = []
     amount = 0
     for gift in g.toDeliver:
@@ -59,6 +143,24 @@ def getGiftsInArea(x, y, g: Game):
 
 
 def goTo(x: int, y: int, g: Game, goFast: bool = True):
+    """
+    Go to
+        This function is called to go to a given position
+
+    Parameters
+    ----------
+    x : int
+        X coordinate of the position
+
+    y : int
+        Y coordinate of the position
+
+    g : Game
+        Game object
+
+    goFast : bool
+        If True, Santa will go as fast as possible
+    """
 
     distX = abs(g.santa.x - x)
     distY = abs(g.santa.y - y)
@@ -251,7 +353,21 @@ def goTo(x: int, y: int, g: Game, goFast: bool = True):
     stopMoving(g)
 
 
-def clusters_analysis(g: Game):
+def clusters_analysis(g: Game) -> list[list[Gift]]:
+    """
+    Clusters analysis
+
+    Parameters
+    ----------
+    g : Game
+        Game object
+
+    Returns
+    -------
+    list[list[Gift]]
+        List of clusters
+    """
+
     minX, maxX, minY, maxY = getMap(g)
 
     # Algorithm DBSCAN
@@ -275,6 +391,18 @@ def clusters_analysis(g: Game):
 
 
 def cluster_delivery(clusters, g: Game):
+    """
+    Deliver the gifts in the clusters
+
+    Parameters
+    ----------
+    clusters : list[list[Gift]]
+        List of clusters
+
+    g : Game
+        Game object
+    """
+
     for i in clusters:
         print(f"Cluster {clusters.index(i)} : len : {len(i)}, weight : {sum([j.weight for j in i])}, score : {sum([j.score for j in i])}")
 
@@ -305,7 +433,21 @@ def cluster_delivery(clusters, g: Game):
             goTo(0, 0, g, False)
 
 
-def generate_coordinates(g):
+def generate_coordinates(g: Game) -> list[(int, int)]:
+    """
+    Generate coordinates with a step of maxDeliveryDistance or 1. Used for the area analysis
+
+    Parameters
+    ----------
+    g : Game
+        Game object
+
+    Returns
+    -------
+    list[(int, int)]
+        List of coordinates
+    """
+
     minX, maxX, minY, maxY = getMap(g)
     coordinates = []
     for i in range(minX, maxX, g.maxDeliveryDistance if g.maxDeliveryDistance else 1):
@@ -315,7 +457,21 @@ def generate_coordinates(g):
     return coordinates
 
 
-def area_analysis(g):
+def area_analysis(g: Game) -> list((int, int, int)):
+    """
+    Area analysis sort the coordinates by the score over the distance to 0,0
+
+    Parameters
+    ----------
+    g : Game
+        Game object
+
+    Returns
+    -------
+    list((int, int, int))
+        List of coordinates of the areas with their score (x, y, score)
+    """
+
     coordinates = generate_coordinates(g)
     temp = []
     for i in coordinates:
@@ -331,7 +487,19 @@ def area_analysis(g):
     return temp
 
 
-def area_delivery(coordinates, g):
+def area_delivery(coordinates: list((int, int, int)), g: Game):
+    """
+    Deliver the gifts in the areas
+
+    Parameters
+    ----------
+    coordinates : list((int, int, int))
+        List of coordinates of the areas with their score (x, y, score)
+
+    g : Game
+        Game object
+    """
+
     for i in range(len(coordinates)):
         g.toDeliver.sort(key=lambda x: getDist(x.x, x.y, coordinates[i][0], coordinates[i][1]))
         goTo(0, 0, g)

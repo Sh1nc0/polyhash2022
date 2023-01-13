@@ -6,8 +6,42 @@ from objects.santa import Santa
 
 
 class Parser:
+    """
+    Parser object
+        This object parses the input file
+
+    Attributes
+    ----------
+    filename : str
+        Name of the input file
+
+    time : int
+        Time of the simulation
+
+    deliveryDistance : int
+        Distance to deliver a gift
+
+    nbAcc : int
+        Number of acceleration steps
+
+    nbGifts : int
+        Number of gifts
+
+    santa : Santa
+        Santa object
+
+    gifts : list[Gift]
+        List of gifts
+    """
 
     def __init__(self, filename: str):
+        """
+        Parameters
+        ----------
+        filename : str
+            Name of the input file
+        """
+
         self.filename: str = filename
 
         self.time: int = 0
@@ -19,6 +53,9 @@ class Parser:
         self.gifts: list[Gift] = []
 
     def parse(self):
+        """
+        Parse the input file
+        """
         with open(self.filename, "r") as f:
             lines = f.readlines()
 
