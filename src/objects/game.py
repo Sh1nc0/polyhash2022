@@ -8,14 +8,55 @@ from parser import Parser
 import os
 import time
 
+# Generate documentation with pydoc for doxygen
+
 
 class Game:
+    """
+    Game object
+        This object represents a game we use it to perform actions on Santa and to keep track of the game state
+
+    Attributes
+    ----------
+    start_time : float
+        Time at the start of the game used to compute the execution time
+
+    actionCount : int
+        Number of actions performed by Santa
+
+    maxDeliveryDistance : int
+        Maximum distance to deliver a gift
+
+    timeLimit : int
+        Time limit of the game
+
+    timeCount : int
+        Time elapsed
+
+    score : int
+        Score of the game
+
+    santa : Santa
+        Santa object
+
+    toDeliver : list[Gift]
+        List of gifts to deliver
+
+    deliveredGifts : list[Gift]
+        List of gifts delivered
+
+    outputString : list[str]
+        List of actions performed
+
+    outDist : str
+        Output file path
+    """
 
     def __init__(self, p: Parser):
-        self.start_time = time.time()
         if p is None:
             raise Exception
 
+        self.start_time = time.time()
         self.actionCount: int = 0
         self.maxDeliveryDistance: int = p.deliveryDistance
 
@@ -30,9 +71,22 @@ class Game:
         self.deliveredGifts: list[Gift] = []
 
         self.outputString: list[str] = []
-        self.outDist: str = f"../data/output_data/{p.filename.split('/')[-1].replace('.in', '.out')}"
+        self.outDist: str = f"../data/output_data/{p.filename.split('/')[-1].replace('.in', '.out')}"  # The default output directory is ../data/output_data/ + the name of the input file with the .in extension replaced by .out
 
     def accelerate(self, nb: int, dir: str):
+        """
+        Accelerate Santa
+            Use this function to accelerate Santa in a given direction by a given number of units
+
+        Parameters
+        ----------
+        nb : int
+            Number of units to accelerate
+
+        dir : str
+            Direction to accelerate, can be ACCELERATE_UP, ACCELERATE_DOWN, ACCELERATE_RIGHT, ACCELERATE_LEFT refer to util/constants.py
+        """
+
         if dir == ACCELERATE_UP:
             self.santa.vy += nb
             self.outputString.append(f"{ACCELERATE_UP} {nb}\n")
@@ -53,6 +107,16 @@ class Game:
         self.actionCount += 1
 
     def floatX(self, nb: int):
+        """
+        Float X units
+            Update Santa's position and increment timeCount
+
+        Parameters
+        ----------
+        nb : int
+            Number of units to float
+        """
+
         self.timeCount += nb
 
         self.outputString.append(f"{FLOAT} {nb}\n")
@@ -62,6 +126,15 @@ class Game:
             self.santa.updatePosition()
 
     def loadCarrots(self, nbCarrots: int):
+        """
+        Load carrots on Santa to accelerate that increase Santa's weight
+
+        Parameters
+        ----------
+        nbCarrots : int
+            Number of carrots to load
+        """
+
         self.santa.carrots += nbCarrots
         self.santa.weight += nbCarrots
 
@@ -69,6 +142,15 @@ class Game:
         self.actionCount += 1
 
     def loadGift(self, g: Gift):
+        """
+        Load a gift on Santa
+
+        Parameters
+        ----------
+        g : Gift
+            Gift to load
+        """
+
         self.toDeliver.remove(g)
         self.santa.loadedGifts.append(g)
         self.santa.weight += g.weight
@@ -77,6 +159,15 @@ class Game:
         self.actionCount += 1
 
     def deliverGift(self, g: Gift):
+        """
+        Deliver a gift that is already loaded on Santa
+
+        Parameters
+        ----------
+        g : Gift
+            Gift to deliver
+        """
+
         self.deliveredGifts.append(g)
         self.santa.loadedGifts.remove(g)
         self.santa.weight -= g.weight
@@ -86,6 +177,15 @@ class Game:
         self.actionCount += 1
 
     def finish(self, outputDirectory: str = None):
+        """
+        Finish the game and write the output file
+
+        Parameters
+        ----------
+        outputDirectory : str
+            Output file path
+        """
+
         end_time = time.time()
         elapsed_time = end_time - self.start_time
         print('Execution time:', elapsed_time, 'seconds')
@@ -99,6 +199,22 @@ class Game:
         f.close()
 
     def findGiftIndex(self, name: str) -> int:
+        """
+        Find the index of a gift in the toDeliver list
+
+        Parameters
+        ----------
+        name : str
+            Name of the gift
+
+        Returns
+        -------
+        int
+            Index of the gift in the toDeliver list
+
+            -1 if not found
+        """
+
         for i in range(len(self.toDeliver)):
             if self.toDeliver[i].name == name:
                 return i

@@ -1,17 +1,5 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Hippolyte ROUSSEL hippolyte.roussel@etu.univ-nantes.fr
-# 20/11/22
-#
-# Vérifie que les mouvements dans le fichier parcours_généré suivent les règles imposées du défi suivant une  situation_de_depart. Fournit un score si tout est bon ou lance des exceptions si une règle n'est pas respectée.
-# Liste des règles : https://codingcompetitions.withgoogle.com/hashcode/round/00000000008cacc6/0000000000aff4a0 Section "Validation" (bas de page)
-#
-# INPUT:
-# challenge.txt // fichier des cadeaux à transmettre
-# parcours.txt // fichier des mouvements du pere-noel pour remettre les différents cadeaux.
-
-# OUTPUT
-# score:int || Exception d'une règle non respecté
 
 import argparse
 from parser import Parser
@@ -20,6 +8,16 @@ from util.constants import ACCELERATE_UP, ACCELERATE_DOWN, ACCELERATE_RIGHT, ACC
 
 
 if __name__ == "__main__":
+    """
+    Scorer
+        This program is validate the output of the solver and compute the score
+
+    Run the program with the following command in the src folder:
+        python3 scorer.py challenge.txt parcours.txt
+
+    Output:
+        score:int || Exception of a rule not respected
+    """
 
     # récupération des arguments du programme:
     parser = argparse.ArgumentParser(description='Solve Poly# challenge.')

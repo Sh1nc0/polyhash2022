@@ -1,3 +1,10 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+"""
+Constants
+    This file contains all the constants used in the project
+"""
 MASS_CARROT = 1
 NUMBER_CARROT_CONSUMPTION_DURING_ACCELERATION = 1
 LOAD_CARROTS = "LoadCarrots"
