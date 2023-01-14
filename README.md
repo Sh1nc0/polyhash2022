@@ -47,3 +47,7 @@ A exécuté en local :
 ```
 git config --local include.path ../.gitconfig
 ```
+
+### Documentation
+
+Ce projet utilise Doxygen afin de mettre en place une page statique de documentation généré depuis nos commentaires. Pour accéder à cette page : [Documentation](https://e203561m.univ-nantes.io/polyhash2022)
