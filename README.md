@@ -1,20 +1,14 @@
-Projet Poly#
-============
+# <u>Projet Poly#</u>
 
-Décrire brièvement le projet ici.
+## <u>Contexte</u>
 
-Le fichier `README.md` est écrit en [**Markdown**](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax) et permet de soigner la _mise en forme_.
+Ce travail a été réalisé dans le cadre d'un projet demandé par Polytech. Le sujet du défi est tiré de la finale du Google Hashcode 2022.
 
-Fonctionnement du projet
-========================
+## <u>Fonctionnement du projet</u>
 
 Description du fonctionnement du projet, notamment comment le lancer.
 
-
-L'équipe
-========
-
-à compléter par chaque personne: 1 ligne par personne, indiquant le nom et l'adresse mail de la personne
+## <u>L'équipe</u>
 
 - Membres :
 
@@ -23,14 +17,33 @@ Romain PIPON romain.pipon@etu.univ-nantes.fr
 Lilian FORGET lilian.forget1@etu.univ-nantes.fr  
 Leo BRIGARDIS leo.brigardis@etu.univ-nantes.fr
 
-Vérification des commits automatique
-====================================
+## <u>Procédure d'installation</u>
+
+## <u>Procédure d'exécution</u>
+
+## <u>Stratégie</u>
+
+## <u>Organisation du code</u>
+
+## <u>Bugs et limitation connues</u>
+
+## <u>Autres</u>
+
+### Commits
+
+Un point important et parfois sous estimé dans un projet et la gestion des commits ainsi que la clarté des noms de ces derniers.
+
+#### Format de commit
+
+Pour ces raisons, nous nous sommes mis d'accord dès le début du projet sur une convention de nommage. Aussi les "types" présent sur l'image ci-dessous serviront a créer des labels sur gitlab qui catégoriseront merge et issue.
+
+![image](https://cdn.discordapp.com/attachments/765491179444764712/1039222782275375204/unknown.png)
+
+#### Vérification des commits automatique
+
+Enfin pour éviter toute erreur dans le nommage, nous avons ajouté un hooks qui intercepte les commits ne passant pas un regex. Pour l'utiliser :
 
 A exécuté en local :
 ```
 git config --local include.path ../.gitconfig
 ```
-
-## Format de commit
-
-![image](https://cdn.discordapp.com/attachments/765491179444764712/1039222782275375204/unknown.png)
