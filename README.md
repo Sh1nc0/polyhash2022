@@ -6,7 +6,16 @@ Ce travail a été réalisé dans le cadre d'un projet demandé par Polytech. Le
 
 ## <u>Fonctionnement du projet</u>
 
-Description du fonctionnement du projet, notamment comment le lancer.
+Attention ! Le projet fonctionne sous python3.10, vous rencontrerez des erreurs si vous choississez de l'exécuter avec des versions précédentes.
+
+- Lancement du projet :
+
+```bash
+cd src
+python3 polyhash.py ../data/input_data/{'Nom du fichier'}.in.txt
+```
+
+Le score s'affiche dans le terminal et un fichier est crée appelé : {'Nom du fichier'}.out.txt
 
 ## <u>L'équipe</u>
 
@@ -20,6 +29,13 @@ Leo BRIGARDIS leo.brigardis@etu.univ-nantes.fr
 ## <u>Procédure d'installation</u>
 
 ## <u>Procédure d'exécution</u>
+
+- Lancement du projet :
+
+```bash
+cd src
+python3 polyhash.py ../data/input_data/{'Nom du fichier'}.in.txt
+```
 
 ## <u>Stratégie</u>
 
