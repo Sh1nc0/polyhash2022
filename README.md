@@ -1,5 +1,17 @@
 # <u>Projet Poly#</u>
 
+## <u>Table des matières</u>
+
+1. [Contexte](#contexte)
+2. [Fonctionnement du projet](#fonctionnement-du-projet)
+3. [L'équipe](#léquipe)
+4. [Procédure d'installation](#procédure-dinstallation)
+5. [Procédure d'exécution](#procédure-dexécution)
+6. [Stratégie](#stratégie)
+7. [Organisation du code](#organisation-du-code)
+8. [Bugs et limitation connues](#bugs-et-limitation-connues)
+9. [Autres](#autres)
+
 ## <u>Contexte</u>
 
 Ce travail a été réalisé dans le cadre d'un projet demandé par Polytech. Le sujet du défi est tiré de la finale du Google Hashcode 2022.
