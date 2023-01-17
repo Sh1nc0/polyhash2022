@@ -1,6 +1,6 @@
-# <u>Projet Polyhash Équipe R</u>
+# Projet Polyhash Équipe R
 
-## <u>Table des matières</u>
+## Table des matières
 
 1. [Contexte](#contexte)
 2. [Fonctionnement du projet](#fonctionnement-du-projet)
@@ -12,11 +12,11 @@
 8. [Bugs et limitation connues](#bugs-et-limitation-connues)
 9. [Autres](#autres)
 
-## <u>Contexte</u>
+## Contexte
 
 Ce travail a été réalisé dans le cadre d'un projet demandé par Polytech. Le sujet du défi est tiré de la finale du Google Hashcode 2022.
 
-## <u>Fonctionnement du projet</u>
+## Fonctionnement du projet
 
 Attention ! Le projet fonctionne sous python3.10, vous rencontrerez des erreurs si vous choississez de l'exécuter avec des versions précédentes.
 
@@ -37,14 +37,14 @@ $ python3 scorer.py ../data/input_data/{'Nom du fichier'}.in.txt ../data/output_
 ```
 Le score s'affiche dans le terminal. Il affiche également les erreurs si le fichier de sortie n'est pas valide.
 
-## <u>L'équipe</u>
+## L'équipe
 
 Hippolyte ROUSSEL hippolyte.roussel@etu.univ-nantes.fr  
 Romain PIPON romain.pipon@etu.univ-nantes.fr  
 Lilian FORGET lilian.forget1@etu.univ-nantes.fr  
 Leo BRIGARDIS leo.brigardis@etu.univ-nantes.fr
 
-## <u>Stratégie</u>
+## Stratégie
 
 La stratégie mise en place consiste dans un premier temps d'analyser la carte et le positionnement des différents cadeaux. Ensuite le programme principal va déterminer quel algorithme convient le mieux. Chaque algorithme a sa propre stratégie.
 
@@ -68,7 +68,7 @@ Les scores ne correspondent pas tout à fait à ceux upload sur le site. Car il 
 
 
 
-## <u>Organisation du code</u>
+## Organisation du code
 ```
 .
 |-- data                # Fichiers d'entrée et de sortie
@@ -98,13 +98,13 @@ Les scores ne correspondent pas tout à fait à ceux upload sur le site. Car il 
 ```
 
 
-## <u>Bugs et limitation connues</u>
+## Bugs et limitation connues
 
 A ce jour, nous rencontrons des problèmes d'optimisation des déplacements. Notre santa n'accelère pas assez pour les points éloignés. Cela se ressent particulièrement sur la map B.
 
 Aussi, le santa ne suit pas une courbe optimale vers sa destination ce qui le pousse à consommer plus de carotte que nécessaire.
 
-## <u>Autres</u>
+## Autres
 
 ### Commits
 
