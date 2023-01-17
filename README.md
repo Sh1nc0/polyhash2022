@@ -1,4 +1,4 @@
-# <u>Projet Poly#</u>
+# <u>Projet Polyhash Équipe R</u>
 
 ## <u>Table des matières</u>
 
@@ -71,8 +71,8 @@ Leo BRIGARDIS leo.brigardis@etu.univ-nantes.fr
 | 
 |-- tests
 |   |-- Test.py        # Fichier de test principal 
-|   |-- testGame.py 
-|   |-- testParse.py
+|   |-- TestGame.py 
+|   |-- TestParse.py
 ```
 
 
