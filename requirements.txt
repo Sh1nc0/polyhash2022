@@ -1,3 +1,4 @@
 # Ce fichier contient les modules pip requis par le projet
 flake8
 pep8-naming
+python3.10
