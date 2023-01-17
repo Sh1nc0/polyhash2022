@@ -78,6 +78,10 @@ Leo BRIGARDIS leo.brigardis@etu.univ-nantes.fr
 
 ## <u>Bugs et limitation connues</u>
 
+A ce jour, nous rencontrons des problèmes d'optimisation des déplacements. Notre santa n'accelère pas assez pour les points éloignés. Cela se ressent particulièrement sur la map B.
+
+Aussi, le santa ne suit pas une courbe optimale vers sa destination ce qui le pousse à consommer plus de carotte que nécessaire.
+
 ## <u>Autres</u>
 
 ### Commits
