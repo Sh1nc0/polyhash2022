@@ -23,15 +23,21 @@ Attention ! Le projet fonctionne sous python3.10, vous rencontrerez des erreurs 
 - Lancement du projet :
 
 ```bash
-cd src
-python3 polyhash.py ../data/input_data/{'Nom du fichier'}.in.txt
+$ cd src
+$ python3 polyhash.py ../data/input_data/{'Nom du fichier'}.in.txt
 ```
 
-Le score s'affiche dans le terminal et un fichier est crée appelé : {'Nom du fichier'}.out.txt
+Le score et le temps d'éxecution s'affiche dans le terminal et un fichier est crée appelé : {'Nom du fichier'}.out.txt
+
+- Vérifier le fichier de sortie :
+
+```bash
+$ cd src
+$ python3 scorer.py ../data/input_data/{'Nom du fichier'}.in.txt ../data/output_data/{'Nom du fichier'}.out.txt
+```
+Le score s'affiche dans le terminal. Il affiche également les erreurs si le fichier de sortie n'est pas valide.
 
 ## <u>L'équipe</u>
-
-- Membres :
 
 Hippolyte ROUSSEL hippolyte.roussel@etu.univ-nantes.fr  
 Romain PIPON romain.pipon@etu.univ-nantes.fr  
@@ -45,13 +51,41 @@ Leo BRIGARDIS leo.brigardis@etu.univ-nantes.fr
 - Lancement du projet :
 
 ```bash
-cd src
-python3 polyhash.py ../data/input_data/{'Nom du fichier'}.in.txt
+$ cd src
+$ python3 polyhash.py ../data/input_data/{'Nom du fichier'}.in.txt
 ```
 
 ## <u>Stratégie</u>
 
 ## <u>Organisation du code</u>
+```
+.
+|-- data                # Fichiers d'entrée et de sortie
+|   |-- input_data 
+|   |-- output_data
+|   
+|-- docs                # Documentation Doxygen
+|-- hooks               # Hooks git, pour vérifier si les commits sont bien nommés
+|-- src                 # Code source du projet
+|   |-- objects
+|   |   |-- game.py  
+|   |   |-- gift.py
+|   |   |-- santa.py
+|   |
+|   |-- util
+|   |   |-- constants.py
+|   |   |-- functions.py
+|   |
+|   |-- parser.py
+|   |-- polyhash.py     # Fichier principal
+|   |-- scorer.py       # Arbitre permet de vérifier la validité d'un fichier de sortie
+| 
+|-- tests
+|   |-- Test.py        # Fichier de test principal 
+|   |-- testGame.py 
+|   |-- testParse.py
+```
+
 
 ## <u>Bugs et limitation connues</u>
 
