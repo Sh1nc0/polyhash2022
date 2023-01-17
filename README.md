@@ -44,17 +44,6 @@ Romain PIPON romain.pipon@etu.univ-nantes.fr
 Lilian FORGET lilian.forget1@etu.univ-nantes.fr  
 Leo BRIGARDIS leo.brigardis@etu.univ-nantes.fr
 
-## <u>Procédure d'installation</u>
-
-## <u>Procédure d'exécution</u>
-
-- Lancement du projet :
-
-```bash
-$ cd src
-$ python3 polyhash.py ../data/input_data/{'Nom du fichier'}.in.txt
-```
-
 ## <u>Stratégie</u>
 
 ## <u>Organisation du code</u>
