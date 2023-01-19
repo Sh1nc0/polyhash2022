@@ -63,6 +63,7 @@ Avec cet algorithme, on découpe la map en différentes zones de taille égale �
 |-----------------------|--------|-------|---------|---------|--------|---------|
 | Score                 | 0      |  0    | 150637  | 168845  | 63303  | 314131  |
 | Temps d'éxecution (s) | 0.0006 |  2.88 |  25.23  |  5.27   | 33.8   |  6.33   |
+| Mémoire (Mo)          | 8,3    |  9,6  |  13,2   |  11,9   | 13,1   |  12,6   |
 
 Les scores ne correspondent pas tout à fait à ceux upload sur le site. Car il y eu certaines modifications pour améliorer la performance. 
 
