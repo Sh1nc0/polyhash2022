@@ -8,4 +8,4 @@
 # N806: variable in function should be lowercase
 # E711: comparison to None should be 'if cond is None:'
 ignore = E501,W292,E262,N802,N803,N806,E402,E711
-exclude = .git,__pycache__,data,docs,hooks,.gitconfig,.gitignore,.gitlab-ci.yml, CHANGELOG, README.MD, requirements.txt
+exclude = .git,__pycache__,data,docs,hooks,.gitconfig,.gitignore,.gitlab-ci.yml, CHANGELOG, README.MD, requirements.txt, Autopilot.py

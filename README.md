@@ -77,6 +77,7 @@ Les scores ne correspondent pas tout à fait à ceux upload sur le site. Car il 
 |   |-- output_data
 |   
 |-- docs                # Documentation Doxygen
+|-- recherches          
 |-- hooks               # Hooks git, pour vérifier si les commits sont bien nommés
 |-- src                 # Code source du projet
 |   |-- objects
